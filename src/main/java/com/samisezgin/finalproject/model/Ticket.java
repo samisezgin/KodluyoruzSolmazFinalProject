@@ -11,7 +11,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    private String trIdNo;
+    private String citizenshipNumber;
 
     private String passengerName;
 
@@ -30,6 +30,9 @@ public class Ticket {
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
     private Booking booking;
 
+    public Ticket() {
+
+    }
 
 
     public Integer getId() {
@@ -40,12 +43,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public String getTrIdNo() {
-        return trIdNo;
+    public String getCitizenshipNumber() {
+        return citizenshipNumber;
     }
 
-    public void setTrIdNo(String trIdNo) {
-        this.trIdNo = trIdNo;
+    public void setCitizenshipNumber(String citizenshipNumber) {
+        this.citizenshipNumber = citizenshipNumber;
     }
 
     public String getPassengerName() {

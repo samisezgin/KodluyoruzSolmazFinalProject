@@ -1,5 +1,7 @@
 package com.samisezgin.finalproject.model;
 
+
+
 import javax.persistence.*;
 
 @Entity

@@ -1,5 +1,7 @@
 package com.samisezgin.finalproject.model;
 
+import com.samisezgin.finalproject.model.enums.PaymentStatus;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Booking {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Ticket> ticketList;
 
     private final LocalDateTime creationDateTime = LocalDateTime.now();
@@ -22,6 +24,11 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
     private PassengerUser passengerUser;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus=PaymentStatus.PENDING;
+
+    private boolean isActive = true;
 
     public Integer getId() {
         return id;
@@ -57,5 +64,21 @@ public class Booking {
 
     public void setPassengerUser(PassengerUser passengerUser) {
         this.passengerUser = passengerUser;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

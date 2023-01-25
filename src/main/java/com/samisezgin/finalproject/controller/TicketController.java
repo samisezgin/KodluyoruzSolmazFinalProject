@@ -2,17 +2,15 @@ package com.samisezgin.finalproject.controller;
 
 import com.samisezgin.finalproject.dto.request.TicketRequest;
 import com.samisezgin.finalproject.dto.response.TicketResponse;
-import com.samisezgin.finalproject.exceptions.TicketNotFoundException;
-import com.samisezgin.finalproject.model.Ticket;
-import com.samisezgin.finalproject.repository.TicketRepository;
 import com.samisezgin.finalproject.service.TicketService;
-import org.modelmapper.ModelMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/tickets")
+@SecurityRequirement(name = "techgeeknext-api")
 public class TicketController {
 
     private final TicketService ticketService;

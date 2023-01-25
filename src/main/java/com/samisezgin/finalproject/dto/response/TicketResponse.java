@@ -1,13 +1,14 @@
 package com.samisezgin.finalproject.dto.response;
 
 import com.samisezgin.finalproject.model.enums.Gender;
+import com.samisezgin.finalproject.model.enums.TravelType;
+import javax.persistence.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import java.time.LocalDateTime;
 
 public class TicketResponse {
 
-    private String trIdNo;
+    private String citizenshipNumber;
     private String passengerName;
     private String passengerSurname;
 
@@ -16,23 +17,15 @@ public class TicketResponse {
 
     private Double price;
 
+    private String voyageFromCity;
+
+    private String voyageToCity;
+
+    private LocalDateTime voyageDateTime;
+
+    private TravelType voyageTravelType;
+
     public TicketResponse() {
-    }
-
-    public TicketResponse(String trIdNo, String passengerName, String passengerSurname, Gender gender, Double price) {
-        this.trIdNo = trIdNo;
-        this.passengerName = passengerName;
-        this.passengerSurname = passengerSurname;
-        this.gender = gender;
-        this.price = price;
-    }
-
-    public String getTrIdNo() {
-        return trIdNo;
-    }
-
-    public void setTrIdNo(String trIdNo) {
-        this.trIdNo = trIdNo;
     }
 
     public String getPassengerName() {
@@ -65,5 +58,45 @@ public class TicketResponse {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getVoyageFromCity() {
+        return voyageFromCity;
+    }
+
+    public void setVoyageFromCity(String voyageFromCity) {
+        this.voyageFromCity = voyageFromCity;
+    }
+
+    public String getVoyageToCity() {
+        return voyageToCity;
+    }
+
+    public void setVoyageToCity(String voyageToCity) {
+        this.voyageToCity = voyageToCity;
+    }
+
+    public LocalDateTime getVoyageDateTime() {
+        return voyageDateTime;
+    }
+
+    public void setVoyageDateTime(LocalDateTime voyageDateTime) {
+        this.voyageDateTime = voyageDateTime;
+    }
+
+    public TravelType getVoyageTravelType() {
+        return voyageTravelType;
+    }
+
+    public void setVoyageTravelType(TravelType voyageTravelType) {
+        this.voyageTravelType = voyageTravelType;
+    }
+
+    public String getCitizenshipNumber() {
+        return citizenshipNumber;
+    }
+
+    public void setCitizenshipNumber(String citizenshipNumber) {
+        this.citizenshipNumber = citizenshipNumber;
     }
 }

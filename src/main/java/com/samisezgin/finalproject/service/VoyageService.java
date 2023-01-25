@@ -2,7 +2,6 @@ package com.samisezgin.finalproject.service;
 
 import com.samisezgin.finalproject.dto.request.VoyageRequest;
 import com.samisezgin.finalproject.dto.response.VoyageResponse;
-import com.samisezgin.finalproject.model.enums.TravelType;
 
 import java.time.LocalDateTime;
 import java.util.List;

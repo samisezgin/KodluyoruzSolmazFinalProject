@@ -2,8 +2,6 @@ package com.samisezgin.finalproject.dto.response;
 
 import com.samisezgin.finalproject.model.enums.TravelType;
 
-import java.time.LocalDateTime;
-
 public class VoyageResponse {
 
     private String fromCity;

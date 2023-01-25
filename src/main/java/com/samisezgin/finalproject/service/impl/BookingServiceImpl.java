@@ -3,6 +3,7 @@ package com.samisezgin.finalproject.service.impl;
 import com.samisezgin.finalproject.dto.request.BookingRequest;
 import com.samisezgin.finalproject.dto.request.TicketRequest;
 import com.samisezgin.finalproject.dto.response.BookingResponse;
+import com.samisezgin.finalproject.dto.response.TicketResponse;
 import com.samisezgin.finalproject.exceptions.*;
 import com.samisezgin.finalproject.model.Booking;
 import com.samisezgin.finalproject.model.PassengerUser;
@@ -14,11 +15,13 @@ import com.samisezgin.finalproject.repository.BookingRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
 import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.BookingService;
+import com.samisezgin.finalproject.util.Constants;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -47,21 +50,21 @@ public class BookingServiceImpl implements BookingService {
         var previousTicketCount = foundUser.getBookingList().stream().flatMap(booking -> booking.getTicketList().stream().filter(ticket -> ticket.getVoyage().getId().equals(foundVoyage.getId()))).count();
 
         if (foundUser.getPassengerType().equals(PassengerType.INDIVIDUAL)) {
-            if (bookingRequest.bookingListTicketList.length + previousTicketCount > 5) {
-                throw new TicketListOverflowException("Bireysel kullanıcı bir sefer için en fazla 5 bilet alabilir!");
+            if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
+                throw new TicketListOverflowException("Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
             }
             int maleCount = 0;
             for (TicketRequest ticket : bookingRequest.getBookingListTicketList()) {
                 if (ticket.getGender() == Gender.MALE)
                     maleCount++;
-                if (maleCount > 2) {
-                    throw new MaleTicketLimitException("Bireysel kullanıcı tek rezervazyonda en fazla 2 erkek bileti alabilir.");
+                if (maleCount > Constants.MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
+                    throw new MaleTicketLimitException("Bireysel kullanıcı tek rezervazyonda en fazla " + Constants.MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " erkek bileti alabilir.");
                 }
             }
         }
         if (foundUser.getPassengerType().equals(PassengerType.CORPORATE)) {
-            if (bookingRequest.bookingListTicketList.length + previousTicketCount > 5) {
-                throw new TicketListOverflowException("Kurumsal kullanıcı bir sefer için en fazla 20 bilet alabilir!");
+            if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER) {
+                throw new TicketListOverflowException("Kurumsal kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER + " bilet alabilir!");
             }
         }
     }
@@ -87,11 +90,17 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = new Booking();
 
-        prepareBooking(bookingRequest, foundUser, foundVoyage, booking);
+        List<Ticket> ticketList= Arrays.stream(bookingRequest.getBookingListTicketList()).toList().stream().map(ticketRequest -> modelMapper.map(ticketRequest,Ticket.class)).toList();
+
+        prepareBooking(foundUser, foundVoyage, booking, ticketList);
 
         bookingRepository.save(booking);
 
-        return prepareBookingResponse(booking);
+        BookingResponse bookingResponse=modelMapper.map(booking,BookingResponse.class);
+
+        bookingResponse.setTicketResponseList(ticketList.stream().map(ticket -> modelMapper.map(ticket,TicketResponse.class)).toList());
+
+        return bookingResponse;
     }
 
     private Voyage findVoyage(BookingRequest bookingRequest) {
@@ -108,18 +117,19 @@ public class BookingServiceImpl implements BookingService {
         return foundUser;
     }
 
-    private BookingResponse prepareBookingResponse(Booking booking) {
+    private BookingResponse prepareBookingResponse(Booking booking,List<TicketResponse> ticketResponseList) {
         BookingResponse bookingResponse = modelMapper.map(booking, BookingResponse.class);
-        bookingResponse.setFromCity(booking.getTicketList().get(0).getVoyage().getFromCity());
-        bookingResponse.setToCity(booking.getTicketList().get(0).getVoyage().getToCity());
-        bookingResponse.setTravelType(booking.getTicketList().get(0).getVoyage().getTravelType());
-        bookingResponse.setVoyageDateTime(booking.getTicketList().get(0).getVoyage().getVoyageDateTime().toString().replace('T', ' '));
+        bookingResponse.setTicketResponseList(ticketResponseList);
+        //bookingResponse.setFromCity(booking.getTicketList().get(0).getVoyage().getFromCity());
+        //bookingResponse.setToCity(booking.getTicketList().get(0).getVoyage().getToCity());
+       // bookingResponse.setTravelType(booking.getTicketList().get(0).getVoyage().getTravelType());
+       // bookingResponse.setVoyageDateTime(booking.getTicketList().get(0).getVoyage().getVoyageDateTime().toString().replace('T', ' '));
         return bookingResponse;
     }
 
-    private void prepareBooking(BookingRequest bookingRequest, PassengerUser foundUser, Voyage foundVoyages, Booking booking) {
+    private void prepareBooking(PassengerUser foundUser, Voyage foundVoyages, Booking booking, List<Ticket> ticketList) {
         booking.setPassengerUser(foundUser);
-        booking.setTicketList(Arrays.stream(bookingRequest.getBookingListTicketList()).map(ticketRequest -> modelMapper.map(ticketRequest, Ticket.class)).toList());
+        booking.setTicketList(ticketList);
         booking.getTicketList().forEach(
                 ticket -> {
                     ticket.setBooking(booking);

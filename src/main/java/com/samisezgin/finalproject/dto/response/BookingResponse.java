@@ -1,33 +1,17 @@
 package com.samisezgin.finalproject.dto.response;
 
-import com.samisezgin.finalproject.dto.request.TicketRequest;
-import com.samisezgin.finalproject.model.enums.TravelType;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class BookingResponse {
+    private String userEmail;
+    private List<TicketResponse> ticketResponseList;
 
-    public String userEmail;
-    public TicketRequest[] ticketList;
+    private LocalDateTime creationDateTime;
 
-    private String fromCity;
-
-    private String toCity;
-
-
-    private String voyageDateTime;
-
-    private TravelType travelType;
-
+    private Double bookingTotalPrice;
 
     public BookingResponse() {
-    }
-
-    public BookingResponse(String userEmail, TicketRequest[] ticketList, String fromCity, String toCity, String voyageDateTime, TravelType travelType) {
-        this.userEmail = userEmail;
-        this.ticketList = ticketList;
-        this.fromCity = fromCity;
-        this.toCity = toCity;
-        this.voyageDateTime = voyageDateTime;
-        this.travelType = travelType;
     }
 
     public String getUserEmail() {
@@ -38,43 +22,28 @@ public class BookingResponse {
         this.userEmail = userEmail;
     }
 
-    public TicketRequest[] getTicketList() {
-        return ticketList;
+    public List<TicketResponse> getTicketResponseList() {
+        return ticketResponseList;
     }
 
-    public void setTicketList(TicketRequest[] ticketList) {
-        this.ticketList = ticketList;
+    public void setTicketResponseList(List<TicketResponse> ticketResponseList) {
+        this.ticketResponseList = ticketResponseList;
     }
 
-    public String getFromCity() {
-        return fromCity;
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
     }
 
-    public void setFromCity(String fromCity) {
-        this.fromCity = fromCity;
+    public void setCreationDateTime(LocalDateTime creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 
-    public String getToCity() {
-        return toCity;
+    public Double getBookingTotalPrice() {
+        return bookingTotalPrice;
     }
 
-    public void setToCity(String toCity) {
-        this.toCity = toCity;
+    public void setBookingTotalPrice(Double bookingTotalPrice) {
+        this.bookingTotalPrice = bookingTotalPrice;
     }
 
-    public String getVoyageDateTime() {
-        return voyageDateTime;
-    }
-
-    public void setVoyageDateTime(String voyageDateTime) {
-        this.voyageDateTime = voyageDateTime;
-    }
-
-    public TravelType getTravelType() {
-        return travelType;
-    }
-
-    public void setTravelType(TravelType travelType) {
-        this.travelType = travelType;
-    }
 }

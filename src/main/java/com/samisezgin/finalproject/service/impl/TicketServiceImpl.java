@@ -55,7 +55,7 @@ public class TicketServiceImpl implements TicketService {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException("İlgili bilet bulunamadı!"));
 
-        ticket.setTrIdNo(ticketRequest.getTrIdNo());
+        ticket.setCitizenshipNumber(ticketRequest.getCitizenshipNumber());
         ticket.setPassengerName(ticketRequest.getPassengerName());
         ticket.setPassengerSurname(ticketRequest.getPassengerSurname());
         ticket.setGender(ticketRequest.getGender());

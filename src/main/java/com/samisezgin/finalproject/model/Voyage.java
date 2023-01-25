@@ -36,15 +36,11 @@ public class Voyage {
     @Enumerated(EnumType.STRING)
     private TravelType travelType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "voyage", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "voyage", cascade = CascadeType.ALL)
     private List<Ticket> ticketList;
 
     @Enumerated(EnumType.STRING)
     private VoyageStatus voyageStatus;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private final LocalDateTime creationDateTime=LocalDateTime.now();
 
     public Voyage() {
         voyageStatus=VoyageStatus.ACTIVE;
@@ -122,8 +118,5 @@ public class Voyage {
         this.voyageStatus = voyageStatus;
     }
 
-    public LocalDateTime getCreationDateTime() {
-        return creationDateTime;
-    }
 
 }

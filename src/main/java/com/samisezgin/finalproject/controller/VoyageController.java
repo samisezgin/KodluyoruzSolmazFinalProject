@@ -4,8 +4,8 @@ import com.samisezgin.finalproject.dto.request.VoyageRequest;
 import com.samisezgin.finalproject.dto.response.VoyageResponse;
 import com.samisezgin.finalproject.model.enums.TravelType;
 import com.samisezgin.finalproject.service.VoyageService;
-import com.samisezgin.finalproject.service.impl.VoyageServiceImpl;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/voyages")
+@SecurityRequirement(name = "techgeeknext-api")
 public class VoyageController {
 
     private final VoyageService voyageService;

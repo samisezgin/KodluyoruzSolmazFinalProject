@@ -1,12 +1,11 @@
 package com.samisezgin.finalproject.dto.request;
 
 import com.samisezgin.finalproject.model.enums.Gender;
+import javax.persistence.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 public class TicketRequest {
-    private String trIdNo;
+    private String citizenshipNumber;
     private String passengerName;
     private String passengerSurname;
 
@@ -16,20 +15,12 @@ public class TicketRequest {
     public TicketRequest() {
     }
 
-    public TicketRequest(String trIdNo, String passengerName, String passengerSurname, Gender gender) {
-
-        this.trIdNo = trIdNo;
-        this.passengerName = passengerName;
-        this.passengerSurname = passengerSurname;
-        this.gender = gender;
+    public String getCitizenshipNumber() {
+        return citizenshipNumber;
     }
 
-    public String getTrIdNo() {
-        return trIdNo;
-    }
-
-    public void setTrIdNo(String trIdNo) {
-        this.trIdNo = trIdNo;
+    public void setCitizenshipNumber(String citizenshipNumber) {
+        this.citizenshipNumber = citizenshipNumber;
     }
 
     public String getPassengerName() {

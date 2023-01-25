@@ -2,7 +2,6 @@ package com.samisezgin.finalproject.service.impl;
 
 import com.samisezgin.finalproject.dto.request.LoginRequest;
 import com.samisezgin.finalproject.dto.request.UserRequest;
-import com.samisezgin.finalproject.dto.response.UserResponse;
 import com.samisezgin.finalproject.exceptions.UserNotFoundException;
 import com.samisezgin.finalproject.model.PassengerUser;
 import com.samisezgin.finalproject.model.User;
@@ -28,10 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(UserRequest userRequest) {
-
         PassengerUser passengerUser = modelMapper.map(userRequest,PassengerUser.class);
+        passengerUser.setPassword(PasswordUtil.preparePasswordHash(passengerUser.getPassword(),passengerUser.getEmail()));
         userRepository.save(passengerUser);
-
     }
 
     public String login(LoginRequest loginRequest) {
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
         User foundUser = userRepository.findByEmailIgnoreCase(loginRequest.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("kullanıcı bulunamadı"));
 
-        String passwordHash = loginRequest.getPassword();//PasswordUtil.preparePasswordHash(loginRequest.getPassword(), loginRequest.getEmail());
+        String passwordHash = PasswordUtil.preparePasswordHash(loginRequest.getPassword(), loginRequest.getEmail());
 
         boolean isValid = PasswordUtil.validatePassword(passwordHash, foundUser.getPassword());
 

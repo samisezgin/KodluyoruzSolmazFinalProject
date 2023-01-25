@@ -16,19 +16,9 @@ public class BookingRequest {
 
     private TravelType travelType;
 
-
     public BookingRequest()
     {
 
-    }
-
-    public BookingRequest(String passengerUserEmail, TicketRequest[] bookingListTicketList, String fromCity, String toCity, String voyageDateTime, TravelType travelType) {
-        this.passengerUserEmail = passengerUserEmail;
-        this.bookingListTicketList = bookingListTicketList;
-        this.fromCity = fromCity;
-        this.toCity = toCity;
-        this.voyageDateTime = voyageDateTime;
-        this.travelType = travelType;
     }
 
     public String getPassengerUserEmail() {

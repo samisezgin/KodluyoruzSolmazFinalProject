@@ -2,9 +2,8 @@ package com.samisezgin.finalproject.dto.request;
 
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.PassengerType;
+import javax.persistence.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 public class UserRequest {
 
