@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tickets")
-@SecurityRequirement(name = "techgeeknext-api")
+@SecurityRequirement(name = "samisezgin-api")
 public class TicketController {
 
     private final TicketService ticketService;

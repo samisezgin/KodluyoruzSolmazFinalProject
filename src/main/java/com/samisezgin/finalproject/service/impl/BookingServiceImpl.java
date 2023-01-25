@@ -15,6 +15,7 @@ import com.samisezgin.finalproject.repository.BookingRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
 import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.BookingService;
+import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.Constants;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
 import org.modelmapper.ModelMapper;
@@ -30,14 +31,16 @@ public class BookingServiceImpl implements BookingService {
     private final ModelMapper modelMapper;
     private final BookingRepository bookingRepository;
     private final VoyageRepository voyageRepository;
+    private final VoyageService voyageService;
 
     public BookingServiceImpl(UserRepository userRepository, ModelMapper modelMapper,
                               BookingRepository bookingRepository,
-                              VoyageRepository voyageRepository) {
+                              VoyageRepository voyageRepository, VoyageService voyageService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.bookingRepository = bookingRepository;
         this.voyageRepository = voyageRepository;
+        this.voyageService = voyageService;
     }
 
     private static void checkIfBookingIsValid(BookingRequest bookingRequest) {
@@ -104,10 +107,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private Voyage findVoyage(BookingRequest bookingRequest) {
-        Voyage foundVoyage = voyageRepository
-                .findVoyages(bookingRequest.getFromCity(), bookingRequest.getToCity(), bookingRequest.getTravelType().toString(), CustomDateTimeConverter.convert(bookingRequest.getVoyageDateTime()))
-                .orElseThrow(() -> new VoyageNotFoundException("Sefer işlem için uygun değil")).get(0);
-        return foundVoyage;
+        return voyageService.findVoyage(bookingRequest);
     }
 
     private PassengerUser findUser(BookingRequest bookingRequest) {

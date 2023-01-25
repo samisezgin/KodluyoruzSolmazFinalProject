@@ -18,7 +18,7 @@ public interface VoyageRepository extends JpaRepository<Voyage,Integer> {
     @Query(value = "select * from voyages v where (v.available_seats >0) and (UPPER(v.from_city) =UPPER(:fromCity) and UPPER(v.to_city) = UPPER(:toCity)) and (v.travel_type =coalesce(:travelType,'PLANE') or v.travel_type =coalesce(:travelType,'BUS')) and v.voyage_status = 'ACTIVE' and (date(v.voyage_date_time) =date(coalesce(:voyageDateTime,now())))",nativeQuery = true)
     Optional<List<Voyage>> findVoyages(@Param("fromCity") String fromCity, @Param("toCity") String toCity, @Param("travelType") String travelType, @Param("voyageDateTime") LocalDateTime voyageDatetime);
 
-    //Optional<Voyage> findVoyageByFromCityAndToCityAllIgnoreCaseAnd
+    Optional<Voyage> findVoyageByFromCityAndToCityAllIgnoreCaseAndVoyageDateTimeAndTravelType(String fromCity, String toCity, LocalDateTime voyageDateTime, TravelType travelType);
 
 
 }

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/voyages")
-@SecurityRequirement(name = "techgeeknext-api")
+@SecurityRequirement(name = "samisezgin-api")
 public class VoyageController {
 
     private final VoyageService voyageService;

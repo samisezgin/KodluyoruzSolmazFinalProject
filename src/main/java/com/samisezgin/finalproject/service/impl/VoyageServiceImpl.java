@@ -1,5 +1,6 @@
 package com.samisezgin.finalproject.service.impl;
 
+import com.samisezgin.finalproject.dto.request.BookingRequest;
 import com.samisezgin.finalproject.dto.request.VoyageRequest;
 import com.samisezgin.finalproject.dto.response.VoyageResponse;
 import com.samisezgin.finalproject.exceptions.VoyageNotFoundException;
@@ -10,6 +11,7 @@ import com.samisezgin.finalproject.model.enums.VoyageStatus;
 import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.Constants;
+import com.samisezgin.finalproject.util.CustomDateTimeConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +91,12 @@ public class VoyageServiceImpl implements VoyageService {
 
         }
         return voyageResponseList;
+    }
+
+    @Override
+    public Voyage findVoyage(BookingRequest bookingRequest) {
+        return voyageRepository.findVoyageByFromCityAndToCityAllIgnoreCaseAndVoyageDateTimeAndTravelType(bookingRequest.getFromCity(),bookingRequest.getToCity(), CustomDateTimeConverter.convert(bookingRequest.getVoyageDateTime()),bookingRequest.getTravelType())
+                .orElseThrow(()->new VoyageNotFoundException("Sefer işlem için uygun değil!"));
     }
 
 

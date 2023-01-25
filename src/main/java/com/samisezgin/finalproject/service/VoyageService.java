@@ -1,7 +1,9 @@
 package com.samisezgin.finalproject.service;
 
+import com.samisezgin.finalproject.dto.request.BookingRequest;
 import com.samisezgin.finalproject.dto.request.VoyageRequest;
 import com.samisezgin.finalproject.dto.response.VoyageResponse;
+import com.samisezgin.finalproject.model.Voyage;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,9 +18,7 @@ public interface VoyageService {
 
 
     List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, String travelType, LocalDateTime dateTime);
-//    List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, TravelType travelType);
-//    List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, LocalDateTime dateTime);
-//    List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to);
+    Voyage findVoyage(BookingRequest bookingRequest);
 
 
 }

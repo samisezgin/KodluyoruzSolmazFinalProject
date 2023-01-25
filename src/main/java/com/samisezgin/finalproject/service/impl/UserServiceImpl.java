@@ -2,6 +2,7 @@ package com.samisezgin.finalproject.service.impl;
 
 import com.samisezgin.finalproject.dto.request.LoginRequest;
 import com.samisezgin.finalproject.dto.request.UserRequest;
+import com.samisezgin.finalproject.dto.response.UserResponse;
 import com.samisezgin.finalproject.exceptions.UserNotFoundException;
 import com.samisezgin.finalproject.model.PassengerUser;
 import com.samisezgin.finalproject.model.User;
@@ -26,10 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(UserRequest userRequest) {
+    public UserResponse create(UserRequest userRequest) {
         PassengerUser passengerUser = modelMapper.map(userRequest,PassengerUser.class);
         passengerUser.setPassword(PasswordUtil.preparePasswordHash(passengerUser.getPassword(),passengerUser.getEmail()));
         userRepository.save(passengerUser);
+        return modelMapper.map(passengerUser,UserResponse.class);
     }
 
     public String login(LoginRequest loginRequest) {

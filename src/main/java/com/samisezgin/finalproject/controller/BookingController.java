@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bookings")
-@SecurityRequirement(name = "techgeeknext-api")
+@SecurityRequirement(name = "samisezgin-api")
 public class BookingController {
 
 private final BookingService bookingService;
