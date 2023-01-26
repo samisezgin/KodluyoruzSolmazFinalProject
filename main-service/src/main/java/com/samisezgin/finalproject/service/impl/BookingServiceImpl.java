@@ -11,17 +11,20 @@ import com.samisezgin.finalproject.model.User;
 import com.samisezgin.finalproject.model.Voyage;
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.PassengerType;
+import com.samisezgin.finalproject.model.enums.PaymentStatus;
 import com.samisezgin.finalproject.repository.BookingRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
 import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.BookingService;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.Constants;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -44,6 +47,7 @@ public class BookingServiceImpl implements BookingService {
 
     private static void checkIfBookingIsValid(BookingRequest bookingRequest) {
         if (bookingRequest.getBookingListTicketList() == null || bookingRequest.getBookingListTicketList().length == 0) {
+            LoggerUtil.getLogger().log(Level.SEVERE, "Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
             throw new EmptyTicketListException("Sefere bilet eklenmedi");
         }
     }
@@ -53,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
 
         if (foundUser.getPassengerType().equals(PassengerType.INDIVIDUAL)) {
             if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
+                LoggerUtil.getLogger().log(Level.SEVERE, "Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
                 throw new TicketListOverflowException("Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
             }
             int maleCount = 0;
@@ -60,12 +65,14 @@ public class BookingServiceImpl implements BookingService {
                 if (ticket.getGender() == Gender.MALE)
                     maleCount++;
                 if (maleCount > Constants.MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
+                    LoggerUtil.getLogger().log(Level.SEVERE, "Bireysel kullanıcı tek rezervazyonda en fazla " + Constants.MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " erkek bileti alabilir.");
                     throw new MaleTicketLimitException("Bireysel kullanıcı tek rezervazyonda en fazla " + Constants.MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " erkek bileti alabilir.");
                 }
             }
         }
         if (foundUser.getPassengerType().equals(PassengerType.CORPORATE)) {
             if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER) {
+                LoggerUtil.getLogger().log(Level.SEVERE, "Kurumsal kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER + " bilet alabilir!");
                 throw new TicketListOverflowException("Kurumsal kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER + " bilet alabilir!");
             }
         }
@@ -73,6 +80,7 @@ public class BookingServiceImpl implements BookingService {
 
     private static void checkVoyageHasAvailableSeats(Voyage foundVoyage, BookingRequest bookingRequest) {
         if (foundVoyage.getAvailableSeats() < bookingRequest.getBookingListTicketList().length) {
+            LoggerUtil.getLogger().log(Level.WARNING, "Seferde yeterli yer bulunmamaktadır.");
             throw new TicketListOverflowException("Seferde yeterli yer bulunmamaktadır.");
         }
     }
@@ -101,7 +109,7 @@ public class BookingServiceImpl implements BookingService {
         BookingResponse bookingResponse=modelMapper.map(booking,BookingResponse.class);
 
         bookingResponse.setTicketResponseList(ticketList.stream().map(ticket -> modelMapper.map(ticket,TicketResponse.class)).toList());
-
+        LoggerUtil.getLogger().log(Level.INFO, "BookingService -> createBooking done. "+bookingRequest.getPassengerUserEmail()+"---"+bookingRequest.getFromCity()+"->"+bookingRequest.getToCity()+"->"+bookingRequest.getVoyageDateTime());
         return bookingResponse;
     }
 
@@ -114,16 +122,6 @@ public class BookingServiceImpl implements BookingService {
                 .findByEmailIgnoreCase(bookingRequest.getPassengerUserEmail())
                 .orElseThrow(() -> new UserNotFoundException("Kullanıcı bulunamadı"));
         return foundUser;
-    }
-
-    private BookingResponse prepareBookingResponse(Booking booking,List<TicketResponse> ticketResponseList) {
-        BookingResponse bookingResponse = modelMapper.map(booking, BookingResponse.class);
-        bookingResponse.setTicketResponseList(ticketResponseList);
-        //bookingResponse.setFromCity(booking.getTicketList().get(0).getVoyage().getFromCity());
-        //bookingResponse.setToCity(booking.getTicketList().get(0).getVoyage().getToCity());
-       // bookingResponse.setTravelType(booking.getTicketList().get(0).getVoyage().getTravelType());
-       // bookingResponse.setVoyageDateTime(booking.getTicketList().get(0).getVoyage().getVoyageDateTime().toString().replace('T', ' '));
-        return bookingResponse;
     }
 
     private void prepareBooking(User foundUser, Voyage foundVoyages, Booking booking, List<Ticket> ticketList) {
@@ -146,6 +144,15 @@ public class BookingServiceImpl implements BookingService {
         BookingResponse bookingResponse=modelMapper.map(booking,BookingResponse.class);
         bookingResponse.setTicketResponseList(booking.getTicketList().stream().map(ticket -> modelMapper.map(ticket,TicketResponse.class)).toList());
         return bookingResponse;
+    }
+
+    @Override
+    public void changePaymentStatus(Integer id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow(() -> new BookingNotFoundException("Rezervasyon bulunamadı"));
+
+        booking.setPaymentStatus(PaymentStatus.SUCCESS);
+        LoggerUtil.getLogger().log(Level.INFO, "BookingService -> changePaymentStatus done.");
+        bookingRepository.save(booking);
     }
 
 

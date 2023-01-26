@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Document(value = "notifications")
-public class Notification implements Serializable {
+public abstract class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
@@ -17,15 +17,11 @@ public class Notification implements Serializable {
     @Enumerated(EnumType.STRING)
     private NotificationType notificationType;
 
-    private String contactInfo;
+
 
     public Notification() {
     }
 
-    public Notification(String notificationMessage, NotificationType notificationType) {
-        this.notificationMessage = notificationMessage;
-        this.notificationType = notificationType;
-    }
 
     public String getNotificationMessage() {
         return notificationMessage;
@@ -43,20 +39,12 @@ public class Notification implements Serializable {
         this.notificationType = notificationType;
     }
 
-    public String getContactInfo() {
-        return contactInfo;
-    }
-
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
-    }
 
     @Override
     public String toString() {
         return "Notification{" +
                 "notificationMessage='" + notificationMessage + '\'' +
                 ", notificationType=" + notificationType +
-                ", contactInfo='" + contactInfo + '\'' +
                 '}';
     }
 }

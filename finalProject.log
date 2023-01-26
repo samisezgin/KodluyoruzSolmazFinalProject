@@ -1,0 +1,4 @@
+Jan 27, 2023 1:23:17 AM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 27, 2023 1:23:17 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :qwerqwet

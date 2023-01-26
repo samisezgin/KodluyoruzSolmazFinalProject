@@ -5,13 +5,16 @@ import com.samisezgin.notificationservice.model.concrete.enums.NotificationType;
 
 public class SmsNotification extends Notification {
 
+    private String phoneNumber;
     public SmsNotification() {
-    }
-
-    public SmsNotification(String message, String contactInfo) {
         this.setNotificationType(NotificationType.SMS);
-        this.setNotificationMessage(message);
-        this.setContactInfo(contactInfo);
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

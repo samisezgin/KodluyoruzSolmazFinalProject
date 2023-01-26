@@ -1,17 +1,15 @@
 package com.samisezgin.finalproject.model;
 
-import java.io.Serializable;
-
-public class Notification implements Serializable {
+public class NotificationRequest{
     private String notificationMessage;
     private String notificationType;
 
     private String contactInfo;
 
-    public Notification() {
+    public NotificationRequest() {
     }
 
-    public Notification(String notificationMessage, String notificationType, String contactInfo) {
+    public NotificationRequest(String notificationMessage, String notificationType, String contactInfo) {
         this.notificationMessage = notificationMessage;
         this.notificationType = notificationType;
         this.contactInfo = contactInfo;
@@ -40,4 +38,6 @@ public class Notification implements Serializable {
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+
 }

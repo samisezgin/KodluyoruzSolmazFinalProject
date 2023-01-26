@@ -4,17 +4,17 @@ import com.samisezgin.notificationservice.model.Notification;
 import com.samisezgin.notificationservice.model.concrete.enums.NotificationType;
 
 public class PushNotification extends Notification {
+
+    private String username;
     public PushNotification() {
-    }
-
-    public PushNotification(String message, String contactInfo) {
         this.setNotificationType(NotificationType.PUSH);
-        this.setNotificationMessage(message);
-        this.setContactInfo(contactInfo);
     }
 
+    public String getUsername() {
+        return username;
+    }
 
-
-
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

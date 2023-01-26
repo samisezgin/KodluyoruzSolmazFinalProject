@@ -12,10 +12,12 @@ import com.samisezgin.finalproject.repository.TicketRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
 import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.TicketService;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Level;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -45,6 +47,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setVoyage(foundVoyage);
         ticket.setPrice(foundVoyage.getPrice());
 
+        LoggerUtil.getLogger().log(Level.INFO, "TicketService  -> createTicket :" + ticketRequest.getPassengerName());
         ticketRepository.save(ticket);
 
         return modelMapper.map(ticket, TicketResponse.class);
@@ -61,7 +64,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setGender(ticketRequest.getGender());
 
         ticketRepository.save(ticket);
-
+        LoggerUtil.getLogger().log(Level.INFO, "TicketService  -> updateTicket :" + ticketRequest.getPassengerName());
         return modelMapper.map(ticket, TicketResponse.class);
     }
 
@@ -78,6 +81,7 @@ public class TicketServiceImpl implements TicketService {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException("İlgili bilet bulunamadı"));
         ticketRepository.delete(ticket);
+        LoggerUtil.getLogger().log(Level.INFO, "TicketService  -> deleteTicket :" + ticket.getPassengerName());
         return modelMapper.map(ticket, TicketResponse.class);
     }
 

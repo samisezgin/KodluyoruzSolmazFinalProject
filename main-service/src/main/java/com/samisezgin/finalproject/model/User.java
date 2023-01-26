@@ -2,14 +2,14 @@ package com.samisezgin.finalproject.model;
 
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.PassengerType;
-import com.samisezgin.finalproject.model.enums.Role;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = {"email"}) })
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     private final LocalDateTime creationDateTime = LocalDateTime.now();
     @Id
@@ -20,12 +20,14 @@ public class User {
     private String password;
     private String email;
     private String phoneNumber;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinColumn(name = "role_id",referencedColumnName = "id",nullable = false)
+    private Set<Role> roles;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-
 
     @Enumerated(EnumType.STRING)
     private PassengerType passengerType;
@@ -35,6 +37,14 @@ public class User {
 
     @OneToMany(mappedBy = "passengerUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookingList;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;
@@ -84,13 +94,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public Address getAddress() {
         return address;
