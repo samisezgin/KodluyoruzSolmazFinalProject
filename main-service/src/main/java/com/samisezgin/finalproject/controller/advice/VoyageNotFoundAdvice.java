@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 class VoyageNotFoundAdvice {
-
     @ResponseBody
     @ExceptionHandler(VoyageNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

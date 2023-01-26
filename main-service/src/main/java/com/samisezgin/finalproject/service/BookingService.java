@@ -11,4 +11,6 @@ public interface BookingService {
 
     BookingResponse getById(Integer id);
 
+    void changePaymentStatus(Integer id);
+
 }

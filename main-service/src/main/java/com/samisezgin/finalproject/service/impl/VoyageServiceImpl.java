@@ -12,12 +12,14 @@ import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.Constants;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 @Service
 public class VoyageServiceImpl implements VoyageService {
@@ -44,7 +46,7 @@ public class VoyageServiceImpl implements VoyageService {
         Voyage voyage = modelMapper.map(voyageRequest, Voyage.class);
         setVoyageCapacity(voyage);
         voyageRepository.save(voyage);
-
+        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> createVoyage : "+voyageRequest.getFromCity()+"->"+voyageRequest.getToCity()+"->"+voyageRequest.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 
@@ -52,6 +54,7 @@ public class VoyageServiceImpl implements VoyageService {
     public VoyageResponse deactivate(Integer id) {
         Voyage voyage = voyageRepository.findById(id).orElseThrow(() -> new VoyageNotFoundException("İlgili sefer bulunamadı!"));
         voyage.setVoyageStatus(VoyageStatus.PASSIVE);
+        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> deactivateVoyage : "+voyage.getFromCity()+"->"+voyage.getToCity()+"->"+voyage.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 
@@ -59,6 +62,7 @@ public class VoyageServiceImpl implements VoyageService {
     public VoyageResponse delete(Integer id) {
         Voyage voyage = voyageRepository.findById(id).orElseThrow(() -> new VoyageNotFoundException("İlgili sefer bulunamadı!"));
         voyageRepository.delete(voyage);
+        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> deleteVoyage : "+voyage.getFromCity()+"->"+voyage.getToCity()+"->"+voyage.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 

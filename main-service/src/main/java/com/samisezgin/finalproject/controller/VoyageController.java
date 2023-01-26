@@ -5,15 +5,16 @@ import com.samisezgin.finalproject.dto.response.VoyageResponse;
 import com.samisezgin.finalproject.model.enums.TravelType;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 
 @RestController
-@RequestMapping("/api/voyages")
+@RequestMapping("/voyages")
 public class VoyageController {
 
     private final VoyageService voyageService;
@@ -24,16 +25,19 @@ public class VoyageController {
 
     @PostMapping
     public VoyageResponse create(@RequestBody VoyageRequest voyageRequest) {
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageController POST request -> createVoyage :" + voyageRequest.getFromCity()+"->"+voyageRequest.getToCity());
         return voyageService.create(voyageRequest);
     }
 
     @PutMapping("/{id}")
     public VoyageResponse deactivate(@PathVariable Integer id) {
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageController PUT request -> deactivateVoyage : voyageId -> " + id);
         return voyageService.deactivate(id);
     }
 
     @DeleteMapping("/{id}")
     public VoyageResponse delete(@PathVariable Integer id) {
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageController DELETE request -> deleteVoyage : voyageId -> " + id);
         return voyageService.delete(id);
     }
 

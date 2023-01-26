@@ -5,6 +5,7 @@ import com.samisezgin.finalproject.dto.request.UserRequest;
 import com.samisezgin.finalproject.dto.response.UserResponse;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService  {

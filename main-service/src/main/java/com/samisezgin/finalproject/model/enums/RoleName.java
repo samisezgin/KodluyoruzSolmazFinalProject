@@ -1,5 +1,5 @@
 package com.samisezgin.finalproject.model.enums;
 
-public enum Role {
-    USER,ADMIN
+public enum RoleName {
+    ROLE_USER,ROLE_ADMIN
 }

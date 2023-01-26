@@ -4,17 +4,23 @@ import com.samisezgin.finalproject.dto.request.LoginRequest;
 import com.samisezgin.finalproject.dto.request.UserRequest;
 import com.samisezgin.finalproject.dto.response.UserResponse;
 import com.samisezgin.finalproject.exceptions.UserNotFoundException;
-import com.samisezgin.finalproject.model.Notification;
+import com.samisezgin.finalproject.model.NotificationRequest;
+import com.samisezgin.finalproject.model.Role;
 import com.samisezgin.finalproject.model.User;
-import com.samisezgin.finalproject.model.enums.Role;
+import com.samisezgin.finalproject.model.enums.RoleName;
+import com.samisezgin.finalproject.repository.RoleRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
 import com.samisezgin.finalproject.service.UserService;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import com.samisezgin.finalproject.util.PasswordUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,27 +32,32 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
 
     private final RabbitTemplate template;
+    private final RoleRepository roleRepository;
 
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RabbitTemplate template) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RabbitTemplate template,
+                           RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
 
         this.template = template;
+        this.roleRepository = roleRepository;
     }
     @Override
     public UserResponse create(UserRequest userRequest) {
         User passengerUser = modelMapper.map(userRequest,User.class);
-        passengerUser.setRole(Role.USER);
+
+        Set<Role> roles=new HashSet<>();
+        roles.add(roleRepository.findByRoleName(RoleName.ROLE_USER).orElseThrow(()->new RuntimeException("Role is not exist")));
+        passengerUser.setRoles(roles);
+
         passengerUser.setPassword(PasswordUtil.preparePasswordHash(passengerUser.getPassword(),passengerUser.getEmail()));
         userRepository.save(passengerUser);
-        template.convertAndSend("notification", new Notification("Kullanıcı başarılı bir şekilde oluşturulmuştur. "+userRequest.getEmail(), "EMAIL",userRequest.getEmail()));
+        LoggerUtil.getLogger().log(Level.INFO,"UserService -> createUser : "+userRequest.getEmail());
+        template.convertAndSend("notification", new NotificationRequest("User successfully created with email: "+userRequest.getEmail(), "EMAIL",userRequest.getEmail()));
         return modelMapper.map(passengerUser,UserResponse.class);
     }
-    public void save(User user) {
 
-        userRepository.save(user);
-    }
 
     @Override
     public List<UserResponse> getAll() {
@@ -62,19 +73,9 @@ public class UserServiceImpl implements UserService {
         String passwordHash = PasswordUtil.preparePasswordHash(loginRequest.getPassword(), loginRequest.getEmail());
 
         boolean isValid = PasswordUtil.validatePassword(passwordHash, foundUser.getPassword());
-
+        LoggerUtil.getLogger().log(Level.INFO,"UserService -> userLogin : "+loginRequest.getEmail()+(isValid?" success.":" failed."));
         return isValid ? LOGIN_SUCCESS : INVALID_EMAIL_OR_PASSWORD;
 
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Optional<User> optionalUser = userRepository.findByEmailIgnoreCase(username);
-//        if (!optionalUser.isPresent()) {
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
-//        User user = optionalUser.get();
-//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-//                Collections.singletonList(new SimpleGrantedAuthority(user.getRole())));
-//    }
 }

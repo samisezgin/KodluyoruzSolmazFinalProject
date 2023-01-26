@@ -4,13 +4,17 @@ import com.samisezgin.notificationservice.model.Notification;
 import com.samisezgin.notificationservice.model.concrete.enums.NotificationType;
 
 public class EmailNotification extends Notification {
+
+    private String emailAddress;
     public EmailNotification() {
-    }
-
-    public EmailNotification(String message,String contactInfo) {
         this.setNotificationType(NotificationType.EMAIL);
-        this.setNotificationMessage(message);
-        this.setContactInfo(contactInfo);
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 }
