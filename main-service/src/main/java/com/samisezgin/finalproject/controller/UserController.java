@@ -26,11 +26,11 @@ public class UserController {
         return userService.create(userRequest);
     }
 
-    @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        LoggerUtil.getLogger().log(Level.INFO, "UserController POST request -> login :" + loginRequest.getEmail());
-        return ResponseEntity.ok(userService.login(loginRequest));
-    }
+//    @PostMapping(value = "/login")
+//    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+//        LoggerUtil.getLogger().log(Level.INFO, "UserController POST request -> login :" + loginRequest.getEmail());
+//        return ResponseEntity.ok(userService.login(loginRequest));
+//    }
 
     @GetMapping
     public List<UserResponse> getAll() {
