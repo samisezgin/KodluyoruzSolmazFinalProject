@@ -2,12 +2,14 @@ package com.samisezgin.finalproject.controller;
 
 import com.samisezgin.finalproject.dto.request.VoyageRequest;
 import com.samisezgin.finalproject.dto.response.VoyageResponse;
+import com.samisezgin.finalproject.model.enums.RoleName;
 import com.samisezgin.finalproject.model.enums.TravelType;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.CustomDateTimeConverter;
 import com.samisezgin.finalproject.util.LoggerUtil;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +24,7 @@ public class VoyageController {
     public VoyageController(VoyageService voyageService) {
         this.voyageService = voyageService;
     }
+
 
     @PostMapping
     public VoyageResponse create(@RequestBody VoyageRequest voyageRequest) {

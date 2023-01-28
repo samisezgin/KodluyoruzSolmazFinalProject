@@ -12,12 +12,12 @@ public class Role {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
+    //@Enumerated(EnumType.STRING)
+    private String roleName;
 
     public Role(){}
 
-    public Role(RoleName roleName)
+    public Role(String roleName)
     {
         this.roleName=roleName;
     }
@@ -30,11 +30,11 @@ public class Role {
         this.id = id;
     }
 
-    public RoleName getRoleName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(RoleName roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 }
