@@ -14,6 +14,10 @@ public class BookingResponse {
     public BookingResponse() {
     }
 
+    public BookingResponse(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     public String getUserEmail() {
         return userEmail;
     }

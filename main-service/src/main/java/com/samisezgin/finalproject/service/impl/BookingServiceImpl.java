@@ -14,7 +14,6 @@ import com.samisezgin.finalproject.model.enums.PassengerType;
 import com.samisezgin.finalproject.model.enums.PaymentStatus;
 import com.samisezgin.finalproject.repository.BookingRepository;
 import com.samisezgin.finalproject.repository.UserRepository;
-import com.samisezgin.finalproject.repository.VoyageRepository;
 import com.samisezgin.finalproject.service.BookingService;
 import com.samisezgin.finalproject.service.VoyageService;
 import com.samisezgin.finalproject.util.Constants;
@@ -32,16 +31,15 @@ public class BookingServiceImpl implements BookingService {
 
     private final ModelMapper modelMapper;
     private final BookingRepository bookingRepository;
-    private final VoyageRepository voyageRepository;
+
     private final VoyageService voyageService;
 
     public BookingServiceImpl(UserRepository userRepository, ModelMapper modelMapper,
-                              BookingRepository bookingRepository,
-                              VoyageRepository voyageRepository, VoyageService voyageService) {
+                              BookingRepository bookingRepository, VoyageService voyageService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.bookingRepository = bookingRepository;
-        this.voyageRepository = voyageRepository;
+
         this.voyageService = voyageService;
     }
 
@@ -56,7 +54,7 @@ public class BookingServiceImpl implements BookingService {
         var previousTicketCount = foundUser.getBookingList().stream().flatMap(booking -> booking.getTicketList().stream().filter(ticket -> ticket.getVoyage().getId().equals(foundVoyage.getId()))).count();
 
         if (foundUser.getPassengerType().equals(PassengerType.INDIVIDUAL)) {
-            if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
+            if (bookingRequest.getBookingListTicketList().length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER) {
                 LoggerUtil.getLogger().log(Level.SEVERE, "Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
                 throw new TicketListOverflowException("Bireysel kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER + " bilet alabilir!");
             }
@@ -71,7 +69,7 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         if (foundUser.getPassengerType().equals(PassengerType.CORPORATE)) {
-            if (bookingRequest.bookingListTicketList.length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER) {
+            if (bookingRequest.getBookingListTicketList().length + previousTicketCount > Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER) {
                 LoggerUtil.getLogger().log(Level.SEVERE, "Kurumsal kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER + " bilet alabilir!");
                 throw new TicketListOverflowException("Kurumsal kullanıcı bir sefer için en fazla " + Constants.MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER + " bilet alabilir!");
             }
@@ -100,16 +98,16 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = new Booking();
 
-        List<Ticket> ticketList= Arrays.stream(bookingRequest.getBookingListTicketList()).toList().stream().map(ticketRequest -> modelMapper.map(ticketRequest,Ticket.class)).toList();
+        List<Ticket> ticketList = Arrays.stream(bookingRequest.getBookingListTicketList()).toList().stream().map(ticketRequest -> modelMapper.map(ticketRequest, Ticket.class)).toList();
 
         prepareBooking(foundUser, foundVoyage, booking, ticketList);
 
         bookingRepository.save(booking);
 
-        BookingResponse bookingResponse=modelMapper.map(booking,BookingResponse.class);
+        BookingResponse bookingResponse = modelMapper.map(booking, BookingResponse.class);
 
-        bookingResponse.setTicketResponseList(ticketList.stream().map(ticket -> modelMapper.map(ticket,TicketResponse.class)).toList());
-        LoggerUtil.getLogger().log(Level.INFO, "BookingService -> createBooking done. "+bookingRequest.getPassengerUserEmail()+"---"+bookingRequest.getFromCity()+"->"+bookingRequest.getToCity()+"->"+bookingRequest.getVoyageDateTime());
+        bookingResponse.setTicketResponseList(ticketList.stream().map(ticket -> modelMapper.map(ticket, TicketResponse.class)).toList());
+        LoggerUtil.getLogger().log(Level.INFO, "BookingService -> createBooking done. " + bookingRequest.getPassengerUserEmail() + "---" + bookingRequest.getFromCity() + "->" + bookingRequest.getToCity() + "->" + bookingRequest.getVoyageDateTime());
         return bookingResponse;
     }
 
@@ -141,8 +139,8 @@ public class BookingServiceImpl implements BookingService {
     public BookingResponse getById(Integer id) {
 
         Booking booking = bookingRepository.findById(id).orElseThrow(() -> new BookingNotFoundException("Rezervasyon bulunamadı"));
-        BookingResponse bookingResponse=modelMapper.map(booking,BookingResponse.class);
-        bookingResponse.setTicketResponseList(booking.getTicketList().stream().map(ticket -> modelMapper.map(ticket,TicketResponse.class)).toList());
+        BookingResponse bookingResponse = modelMapper.map(booking, BookingResponse.class);
+        bookingResponse.setTicketResponseList(booking.getTicketList().stream().map(ticket -> modelMapper.map(ticket, TicketResponse.class)).toList());
         return bookingResponse;
     }
 

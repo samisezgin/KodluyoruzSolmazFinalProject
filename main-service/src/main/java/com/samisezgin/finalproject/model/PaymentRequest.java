@@ -4,6 +4,14 @@ public class PaymentRequest {
     public Integer bookingId;
     public String paymentType;
 
+    public PaymentRequest() {
+    }
+
+    public PaymentRequest(Integer bookingId, String paymentType) {
+        this.bookingId = bookingId;
+        this.paymentType = paymentType;
+    }
+
     public Integer getBookingId() {
         return bookingId;
     }

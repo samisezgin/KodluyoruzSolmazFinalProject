@@ -1,6 +1,9 @@
 package com.samisezgin.finalproject.controller;
 
+import com.samisezgin.finalproject.exceptions.RoleNotFoundException;
 import com.samisezgin.finalproject.model.User;
+import com.samisezgin.finalproject.model.enums.Gender;
+import com.samisezgin.finalproject.model.enums.PassengerType;
 import com.samisezgin.finalproject.model.enums.RoleName;
 import com.samisezgin.finalproject.repository.RoleRepository;
 import com.samisezgin.finalproject.service.impl.SecurityUserDetailsService;
@@ -35,7 +38,7 @@ public class HelloController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "redirect:/swagger-ui/index.html";
     }
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpSession session) {
@@ -54,9 +57,15 @@ public class HelloController {
             MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
     )
     public void addUser(@RequestParam Map<String, String> body) {
-        User user = new User(); user.setEmail(body.get("username"));
+        User user = new User();
+        user.setEmail(body.get("username"));
         user.setPassword(passwordEncoder.encode(body.get("password")));
-        user.setRoles(Set.of(roleRepository.findByRoleName(RoleName.USER).orElseThrow(()->new RuntimeException("Role Not Found"))));
+        user.setGender(Gender.valueOf(body.get("gender")));
+        user.setPassengerType(PassengerType.valueOf(body.get("passenger-type")));
+        user.setName(body.get("name"));
+        user.setSurname(body.get("surname"));
+        user.setPhoneNumber(body.get("phone"));
+        user.setRoles(Set.of(roleRepository.findByRoleName("USER").orElseThrow(()->new RoleNotFoundException("Role Not Found"))));
         userDetailsManager.createUser(user);
     }
     private String getErrorMessage(HttpServletRequest request, String key) {

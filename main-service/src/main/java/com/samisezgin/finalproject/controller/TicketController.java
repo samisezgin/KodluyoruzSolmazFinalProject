@@ -5,6 +5,7 @@ import com.samisezgin.finalproject.dto.response.TicketResponse;
 import com.samisezgin.finalproject.exceptions.TicketNotFoundException;
 import com.samisezgin.finalproject.repository.TicketRepository;
 import com.samisezgin.finalproject.service.TicketService;
+import com.samisezgin.finalproject.service.impl.TicketServiceImpl;
 import com.samisezgin.finalproject.util.LoggerUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,10 @@ import java.util.logging.Level;
 @RequestMapping("/tickets")
 public class TicketController {
 
-    private final TicketService ticketService;
-    private final TicketRepository ticketRepository;
+    private final TicketServiceImpl ticketService;
 
-
-    public TicketController(TicketService ticketService,
-                            TicketRepository ticketRepository) {
+    public TicketController(TicketServiceImpl ticketService) {
         this.ticketService = ticketService;
-        this.ticketRepository = ticketRepository;
     }
 
     @GetMapping("/{id}")
@@ -31,7 +28,7 @@ public class TicketController {
     }
 
     @GetMapping("/user/{email}")
-    public List<TicketResponse> getById(@PathVariable String email) {
+    public List<TicketResponse> getByEmail(@PathVariable String email) {
         return ticketService.getAllByUserEmail(email);
     }
 
@@ -52,7 +49,7 @@ public class TicketController {
     @DeleteMapping("/{ticketId}")
     public TicketResponse delete(@PathVariable Integer ticketId)
     {
-        LoggerUtil.getLogger().log(Level.INFO, "TicketController POST request -> deleteTicket :" + ticketRepository.findById(ticketId).orElseThrow(()->new TicketNotFoundException("Ticket not found while trying to delete")).getCitizenshipNumber());
+        LoggerUtil.getLogger().log(Level.INFO, "TicketController POST request -> deleteTicket :" + ticketService.getById(ticketId));
         return ticketService.delete(ticketId);
     }
 }

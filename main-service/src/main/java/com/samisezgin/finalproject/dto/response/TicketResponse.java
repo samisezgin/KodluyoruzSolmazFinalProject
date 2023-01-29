@@ -28,6 +28,7 @@ public class TicketResponse {
     public TicketResponse() {
     }
 
+
     public String getPassengerName() {
         return passengerName;
     }

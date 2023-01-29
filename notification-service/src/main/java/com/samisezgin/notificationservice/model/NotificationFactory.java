@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationFactory {
 
-    public Notification getNotification(String notificationType,String contactInfo) {
+    public Notification getNotification(String notificationType, String contactInfo) {
 
         if (notificationType == null) {
             return null;

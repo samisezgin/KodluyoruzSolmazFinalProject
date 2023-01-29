@@ -30,6 +30,8 @@ public class Booking {
 
     private boolean isActive = true;
 
+
+
     public Integer getId() {
         return id;
     }
