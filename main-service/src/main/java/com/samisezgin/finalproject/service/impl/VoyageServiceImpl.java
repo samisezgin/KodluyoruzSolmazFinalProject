@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 
 @Service
@@ -101,6 +102,11 @@ public class VoyageServiceImpl implements VoyageService {
     public Voyage findVoyage(BookingRequest bookingRequest) {
         return voyageRepository.findVoyageByFromCityAndToCityAllIgnoreCaseAndVoyageDateTimeAndTravelType(bookingRequest.getFromCity(),bookingRequest.getToCity(), CustomDateTimeConverter.convert(bookingRequest.getVoyageDateTime()),bookingRequest.getTravelType())
                 .orElseThrow(()->new VoyageNotFoundException("Sefer işlem için uygun değil!"));
+    }
+
+    @Override
+    public Optional<Voyage> findById(Integer id) {
+        return voyageRepository.findById(id);
     }
 
 

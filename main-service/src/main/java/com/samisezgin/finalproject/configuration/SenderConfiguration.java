@@ -35,4 +35,10 @@ public class SenderConfiguration {
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
+
+    public String getQueueName()
+    {
+        return queueName;
+    }
 }

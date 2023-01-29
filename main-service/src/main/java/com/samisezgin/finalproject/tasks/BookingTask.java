@@ -27,13 +27,13 @@ public class BookingTask {
     @PostConstruct
     public void checkPackageExpiration() {
         var timer = new Timer();
-        long period = 100 * 60 * 1000;
+        long period = 10 * 60 * 1000;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-
+                System.out.println("Booking task running");
                 var list = bookingRepository.findAll().stream()
                         .filter(u -> u.getCreationDateTime() != null)
-                        .filter(u -> LocalDateTime.now().isAfter(u.getCreationDateTime()))
+                        .filter(u -> LocalDateTime.now().isAfter(u.getCreationDateTime().plusMinutes(10)))
                         .toList()
                         .stream()
                         .filter(booking -> booking.getPaymentStatus().equals(PaymentStatus.PENDING))
@@ -52,6 +52,6 @@ public class BookingTask {
                     bookingRepository.delete(booking);
                 });
             }
-        }, 1000000, period);
+        }, 1000, period);
     }
 }

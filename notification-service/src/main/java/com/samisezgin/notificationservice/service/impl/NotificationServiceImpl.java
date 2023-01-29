@@ -3,7 +3,9 @@ package com.samisezgin.notificationservice.service.impl;
 import com.samisezgin.notificationservice.model.Notification;
 import com.samisezgin.notificationservice.repository.NotificationRepository;
 import com.samisezgin.notificationservice.service.NotificationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationRepository notificationRepository;
