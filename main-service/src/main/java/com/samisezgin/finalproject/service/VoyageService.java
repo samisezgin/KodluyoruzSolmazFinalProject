@@ -7,6 +7,7 @@ import com.samisezgin.finalproject.model.Voyage;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface VoyageService {
 
@@ -19,6 +20,8 @@ public interface VoyageService {
 
     List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, String travelType, LocalDateTime dateTime);
     Voyage findVoyage(BookingRequest bookingRequest);
+
+    Optional<Voyage> findById(Integer id);
 
 
 }

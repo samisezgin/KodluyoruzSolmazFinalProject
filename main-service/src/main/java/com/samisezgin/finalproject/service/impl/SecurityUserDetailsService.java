@@ -1,6 +1,5 @@
 package com.samisezgin.finalproject.service.impl;
 
-import com.samisezgin.finalproject.exceptions.UserNotFoundException;
 import com.samisezgin.finalproject.model.User;
 import com.samisezgin.finalproject.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

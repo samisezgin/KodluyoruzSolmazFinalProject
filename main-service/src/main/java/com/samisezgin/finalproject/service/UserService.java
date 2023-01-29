@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface UserService  {
 
-    String login(LoginRequest loginRequest);
-
     UserResponse create(UserRequest userRequest);
 
     List<UserResponse> getAll();

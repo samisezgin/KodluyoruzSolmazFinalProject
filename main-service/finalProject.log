@@ -42,3 +42,69 @@ Jan 29, 2023 4:29:45 AM com.samisezgin.finalproject.controller.TicketController 
 INFO: TicketController POST request -> deleteTicket :null
 Jan 29, 2023 4:29:45 AM com.samisezgin.finalproject.controller.TicketController update
 INFO: TicketController POST request -> updateTicket :14912345
+Jan 29, 2023 10:05:38 PM com.samisezgin.finalproject.service.impl.TicketServiceImpl create
+INFO: TicketService  -> createTicket :John Smith
+Jan 29, 2023 10:05:45 PM com.samisezgin.finalproject.service.impl.TicketServiceImpl update
+INFO: TicketService  -> updateTicket :John Smith
+Jan 29, 2023 10:05:56 PM com.samisezgin.finalproject.service.impl.TicketServiceImpl delete
+INFO: TicketService  -> deleteTicket :null
+Jan 29, 2023 10:10:17 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl create
+INFO: VoyageService -> createVoyage : ankara->istanbul->2023-01-01 21:00
+Jan 29, 2023 10:19:13 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : Istanbul->Ankara->2023-01-29T22:19:12.998945400
+Jan 29, 2023 10:19:51 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : Istanbul->Ankara->2023-01-29T22:19:51.439983900
+Jan 29, 2023 10:26:22 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : Istanbul->Ankara->2023-01-29T22:26:22.902590600
+Jan 29, 2023 10:31:50 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : Istanbul->Ankara->2023-01-29T22:31:50.116246400
+Jan 29, 2023 10:49:18 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : ankara->null->null
+Jan 29, 2023 10:51:56 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : null->null->null
+Jan 29, 2023 10:52:53 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : null->null->null
+Jan 29, 2023 10:53:19 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : null->null->null
+Jan 29, 2023 10:53:45 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : null->null->null
+Jan 29, 2023 10:58:47 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : ankara->null->null
+Jan 29, 2023 11:00:21 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : ankara->null->null
+Jan 29, 2023 11:00:52 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : ankara->null->null
+Jan 29, 2023 11:03:07 PM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : ankara->null->null
+Jan 29, 2023 11:30:22 PM com.samisezgin.finalproject.service.impl.TicketServiceImpl delete
+INFO: TicketService  -> deleteTicket :sami
+Jan 30, 2023 12:31:31 AM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :mail@mail.com
+Jan 30, 2023 12:31:31 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 30, 2023 12:32:38 AM com.samisezgin.finalproject.controller.TicketController create
+INFO: TicketController POST request -> createTicket :14912345
+Jan 30, 2023 12:32:38 AM com.samisezgin.finalproject.controller.TicketController delete
+INFO: TicketController POST request -> deleteTicket :null
+Jan 30, 2023 12:32:38 AM com.samisezgin.finalproject.controller.TicketController update
+INFO: TicketController POST request -> updateTicket :14912345
+Jan 30, 2023 12:32:48 AM com.samisezgin.finalproject.controller.UserController create
+INFO: UserController POST request -> create :mail@mail.com
+Jan 30, 2023 12:32:57 AM com.samisezgin.finalproject.controller.VoyageController create
+INFO: VoyageController POST request -> createVoyage :ankara->istanbul
+Jan 30, 2023 12:32:57 AM com.samisezgin.finalproject.controller.VoyageController delete
+INFO: VoyageController DELETE request -> deleteVoyage : voyageId -> 1
+Jan 30, 2023 12:34:03 AM com.samisezgin.finalproject.service.impl.TicketServiceImpl create
+INFO: TicketService  -> createTicket :John Smith
+Jan 30, 2023 12:34:03 AM com.samisezgin.finalproject.service.impl.TicketServiceImpl delete
+INFO: TicketService  -> deleteTicket :sami
+Jan 30, 2023 12:34:03 AM com.samisezgin.finalproject.service.impl.TicketServiceImpl update
+INFO: TicketService  -> updateTicket :John Smith
+Jan 30, 2023 12:34:15 AM com.samisezgin.finalproject.service.impl.VoyageServiceImpl delete
+INFO: VoyageService -> deleteVoyage : ankara->null->null
+Jan 30, 2023 12:34:15 AM com.samisezgin.finalproject.service.impl.VoyageServiceImpl create
+INFO: VoyageService -> createVoyage : ankara->istanbul->2023-01-01 21:00
+Jan 30, 2023 12:34:15 AM com.samisezgin.finalproject.service.impl.VoyageServiceImpl deactivate
+INFO: VoyageService -> deactivateVoyage : ankara->null->null
+Jan 30, 2023 1:00:18 AM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.

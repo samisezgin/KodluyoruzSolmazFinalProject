@@ -20,3 +20,29 @@ Jan 28, 2023 9:19:40 PM com.samisezgin.finalproject.service.impl.VoyageServiceIm
 INFO: VoyageService -> createVoyage : string->string->2023-01-31 21:00
 Jan 28, 2023 9:49:28 PM com.samisezgin.finalproject.controller.BookingController create
 INFO: BookingController POST request -> createBooking :user
+Jan 29, 2023 7:56:29 PM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :admin
+Jan 29, 2023 7:56:29 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl create
+INFO: BookingService -> createBooking done. admin---ankara->istanbul->2023-01-31 21:00
+Jan 29, 2023 7:56:57 PM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 7:57:17 PM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 7:57:17 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 29, 2023 7:57:36 PM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 7:57:36 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 29, 2023 7:57:44 PM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 7:57:44 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 29, 2023 7:58:40 PM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :admin
+Jan 29, 2023 7:58:40 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl create
+INFO: BookingService -> createBooking done. admin---ankara->istanbul->2023-01-31 21:00
+Jan 29, 2023 7:58:57 PM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :admin
+Jan 29, 2023 7:58:57 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl create
+INFO: BookingService -> createBooking done. admin---ankara->istanbul->2023-01-31 21:00

@@ -3,7 +3,7 @@ package com.samisezgin.notificationservice.listener;
 import com.samisezgin.notificationservice.model.Notification;
 import com.samisezgin.notificationservice.model.NotificationFactory;
 import com.samisezgin.notificationservice.model.NotificationRequest;
-import com.samisezgin.notificationservice.repository.NotificationRepository;
+import com.samisezgin.notificationservice.service.impl.NotificationServiceImpl;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +12,12 @@ public class NotificationListener {
 
     private final NotificationFactory notificationFactory;
 
-    private final NotificationRepository repository;
+    private final NotificationServiceImpl notificationService;
 
 
-    public NotificationListener(NotificationFactory notificationFactory, NotificationRepository repository) {
+    public NotificationListener(NotificationFactory notificationFactory, NotificationServiceImpl notificationService) {
         this.notificationFactory = notificationFactory;
-        this.repository = repository;
+        this.notificationService = notificationService;
     }
 
     @RabbitListener(queues = "${booking.rabbitmq.queue}")
@@ -27,7 +27,7 @@ public class NotificationListener {
         Notification notification = notificationFactory.getNotification(notificationRequest.getNotificationType(), notificationRequest.getContactInfo());
 
         notification.setNotificationMessage(notificationRequest.getNotificationMessage());
-        repository.save(notification);
+        notificationService.save(notification);
         System.out.println(notification.getNotificationType() + " notification sent.\n" + notification);
 
     }

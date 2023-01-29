@@ -23,11 +23,11 @@ public class VoyageTask {
 
     @PostConstruct
     public void checkVoyageDateTime() {
-
         var timer = new Timer();
-        long period = 12 * 60 * 60 * 1000;
+        long period = 60 * 60 * 1000;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
+                System.out.println("Voyage task running");
                 var list = voyageRepository
                         .findAll().stream()
                         .filter(voyage -> voyage.getVoyageStatus()
