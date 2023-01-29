@@ -5,8 +5,8 @@ import com.samisezgin.finalproject.model.enums.TravelType;
 
 public class BookingRequest {
 
-    public String passengerUserEmail;
-    public TicketRequest[] bookingListTicketList;
+    private String passengerUserEmail;
+    private TicketRequest[] bookingListTicketList;
 
     private String fromCity;
 
@@ -19,6 +19,19 @@ public class BookingRequest {
     public BookingRequest()
     {
 
+    }
+
+    public BookingRequest(String passengerUserEmail, TicketRequest[] bookingListTicketList, String fromCity, String toCity, String voyageDateTime, TravelType travelType) {
+        this.passengerUserEmail = passengerUserEmail;
+        this.bookingListTicketList = bookingListTicketList;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.voyageDateTime = voyageDateTime;
+        this.travelType = travelType;
+    }
+
+    public BookingRequest(String passengerUserEmail) {
+        this.passengerUserEmail = passengerUserEmail;
     }
 
     public String getPassengerUserEmail() {

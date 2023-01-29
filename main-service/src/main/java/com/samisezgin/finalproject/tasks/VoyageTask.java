@@ -12,7 +12,6 @@ import java.util.TimerTask;
 @Component
 public class VoyageTask {
 
-
     private final VoyageRepository voyageRepository;
 
 

@@ -15,19 +15,20 @@ public class NotificationListener {
     private final NotificationRepository repository;
 
 
-
     public NotificationListener(NotificationFactory notificationFactory, NotificationRepository repository) {
         this.notificationFactory = notificationFactory;
         this.repository = repository;
     }
 
-    @RabbitListener(queues = "notification")
+    @RabbitListener(queues = "${booking.rabbitmq.queue}")
     public void notificationListener(NotificationRequest notificationRequest) {
-        System.out.println("Notification received: "+ notificationRequest);
+        System.out.println("Notification received: " + notificationRequest);
+
         Notification notification = notificationFactory.getNotification(notificationRequest.getNotificationType(), notificationRequest.getContactInfo());
+
         notification.setNotificationMessage(notificationRequest.getNotificationMessage());
         repository.save(notification);
-        System.out.println(notification.getNotificationType()+" notification sent.\n"+ notification);
+        System.out.println(notification.getNotificationType() + " notification sent.\n" + notification);
 
     }
 

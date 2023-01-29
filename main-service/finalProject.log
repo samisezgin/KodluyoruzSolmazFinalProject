@@ -1,0 +1,44 @@
+Jan 29, 2023 1:53:50 AM com.samisezgin.finalproject.controller.TicketController delete
+INFO: TicketController POST request -> deleteTicket :null
+Jan 29, 2023 1:57:25 AM com.samisezgin.finalproject.controller.VoyageController delete
+INFO: VoyageController DELETE request -> deleteVoyage : voyageId -> 1
+Jan 29, 2023 2:05:26 AM com.samisezgin.finalproject.controller.VoyageController create
+INFO: VoyageController POST request -> createVoyage :ankara->istanbul
+Jan 29, 2023 2:18:13 AM com.samisezgin.finalproject.controller.VoyageController create
+INFO: VoyageController POST request -> createVoyage :ankara->istanbul
+Jan 29, 2023 2:18:13 AM com.samisezgin.finalproject.controller.VoyageController delete
+INFO: VoyageController DELETE request -> deleteVoyage : voyageId -> 1
+Jan 29, 2023 2:31:54 AM com.samisezgin.finalproject.controller.TicketController create
+INFO: TicketController POST request -> createTicket :14912345
+Jan 29, 2023 2:31:54 AM com.samisezgin.finalproject.controller.TicketController delete
+INFO: TicketController POST request -> deleteTicket :null
+Jan 29, 2023 2:31:54 AM com.samisezgin.finalproject.controller.TicketController update
+INFO: TicketController POST request -> updateTicket :14912345
+Jan 29, 2023 2:33:52 AM com.samisezgin.finalproject.controller.TicketController create
+INFO: TicketController POST request -> createTicket :14912345
+Jan 29, 2023 2:33:53 AM com.samisezgin.finalproject.controller.TicketController delete
+INFO: TicketController POST request -> deleteTicket :null
+Jan 29, 2023 2:33:53 AM com.samisezgin.finalproject.controller.TicketController update
+INFO: TicketController POST request -> updateTicket :14912345
+Jan 29, 2023 2:51:38 AM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :mail@mail.com
+Jan 29, 2023 3:07:27 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 3:15:11 AM com.samisezgin.finalproject.controller.UserController create
+INFO: UserController POST request -> create :mail@mail.com
+Jan 29, 2023 4:29:43 AM com.samisezgin.finalproject.controller.VoyageController create
+INFO: VoyageController POST request -> createVoyage :ankara->istanbul
+Jan 29, 2023 4:29:43 AM com.samisezgin.finalproject.controller.VoyageController delete
+INFO: VoyageController DELETE request -> deleteVoyage : voyageId -> 1
+Jan 29, 2023 4:29:44 AM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :mail@mail.com
+Jan 29, 2023 4:29:44 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 29, 2023 4:29:44 AM com.samisezgin.finalproject.controller.UserController create
+INFO: UserController POST request -> create :mail@mail.com
+Jan 29, 2023 4:29:45 AM com.samisezgin.finalproject.controller.TicketController create
+INFO: TicketController POST request -> createTicket :14912345
+Jan 29, 2023 4:29:45 AM com.samisezgin.finalproject.controller.TicketController delete
+INFO: TicketController POST request -> deleteTicket :null
+Jan 29, 2023 4:29:45 AM com.samisezgin.finalproject.controller.TicketController update
+INFO: TicketController POST request -> updateTicket :14912345

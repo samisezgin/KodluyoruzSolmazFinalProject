@@ -23,12 +23,14 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(String name, String surname, String password, String email, PassengerType passengerType) {
+    public UserRequest(String name, String surname, String password, String email, String phoneNumber, PassengerType passengerType, Gender gender) {
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.passengerType = passengerType;
+        this.gender = gender;
     }
 
     public String getName() {

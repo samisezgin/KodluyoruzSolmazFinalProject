@@ -25,7 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.POST, "/voyages/**").hasAuthority("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/voyages/**").hasAuthority("ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/voyages/**").hasAuthority("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/voyages/**").hasAnyAuthority("ADMIN", "USER")
+                        .antMatchers(HttpMethod.GET, "/voyages").hasAnyAuthority("ADMIN", "USER")
+
+                        .antMatchers(HttpMethod.GET, "/voyages/revenue/**").hasAnyAuthority("ADMIN")
+                        .antMatchers(HttpMethod.GET, "/voyages/getSoldTicketCount/**").hasAnyAuthority("ADMIN")
 
                         .antMatchers("/tickets/**").hasAnyAuthority("ADMIN")
 
@@ -42,15 +45,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout((logout) -> logout.permitAll());
 
 
-//        http
-//                .csrf().disable()
-//                .authorizeRequests().antMatchers("/register**")
-//                .permitAll() .anyRequest().authenticated()
-//                .and()
-//                .formLogin() .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout() .invalidateHttpSession(true)
-//                .clearAuthentication(true) .permitAll();
     }
 }

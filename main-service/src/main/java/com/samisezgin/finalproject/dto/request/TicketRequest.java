@@ -15,6 +15,13 @@ public class TicketRequest {
     public TicketRequest() {
     }
 
+    public TicketRequest(String citizenshipNumber, String passengerName, String passengerSurname, Gender gender) {
+        this.citizenshipNumber = citizenshipNumber;
+        this.passengerName = passengerName;
+        this.passengerSurname = passengerSurname;
+        this.gender = gender;
+    }
+
     public String getCitizenshipNumber() {
         return citizenshipNumber;
     }

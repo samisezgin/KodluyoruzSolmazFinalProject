@@ -41,11 +41,10 @@ public class BookingController {
 
     @PostMapping("/payment")
     public ResponseEntity<Invoice> processPayment(@RequestBody PaymentRequest paymentRequest) {
-        Invoice invoice = paymentServiceClient.processPayment(paymentRequest.getBookingId(), paymentRequest.getPaymentType());
 
-        LoggerUtil.getLogger().log(Level.INFO, "BookingController POST request -> processPayment :" + invoice.getEmail());
+        LoggerUtil.getLogger().log(Level.INFO, "BookingController POST request -> processPayment :" + paymentRequest.getPaymentType());
 
-        return new ResponseEntity<>(invoice, HttpStatus.OK);
+        return new ResponseEntity<>(paymentServiceClient.processPayment(paymentRequest.getBookingId(), paymentRequest.getPaymentType()), HttpStatus.OK);
     }
 
 

@@ -14,12 +14,13 @@ public class SenderConfiguration {
 
     public final String queueName = "notification";
     public final String exchange = "notification.exchange";
-    public final String routing="notification.routing";
+    public final String routing = "notification.routing";
 
     @Bean
     public Queue queue() {
         return new Queue(queueName, false);
     }
+
     @Bean
     public DirectExchange exchange() {
         return new DirectExchange(exchange);

@@ -53,13 +53,14 @@ public class UserServiceImpl implements UserService {
         User passengerUser = modelMapper.map(userRequest, User.class);
 
         Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByRoleName(RoleName.USER).orElseThrow(() -> new RuntimeException("Role is not exist")));
+        roles.add(roleRepository.findByRoleName("USER").orElseThrow(() -> new RuntimeException("Role is not exist")));
         passengerUser.setRoles(roles);
         //passengerUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         //passengerUser.setPassword(PasswordUtil.preparePasswordHash(passengerUser.getPassword(),passengerUser.getEmail()));
         userRepository.save(passengerUser);
         LoggerUtil.getLogger().log(Level.INFO, "UserService -> createUser : " + userRequest.getEmail());
         template.convertAndSend("notification", new NotificationRequest("User successfully created with email: " + userRequest.getEmail(), "EMAIL", userRequest.getEmail()));
+
         return modelMapper.map(passengerUser, UserResponse.class);
     }
 

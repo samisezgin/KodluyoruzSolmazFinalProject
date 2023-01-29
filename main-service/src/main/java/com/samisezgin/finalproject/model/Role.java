@@ -11,8 +11,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    //@Enumerated(EnumType.STRING)
     private String roleName;
 
     public Role(){}
