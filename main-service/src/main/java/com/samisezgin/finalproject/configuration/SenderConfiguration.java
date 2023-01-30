@@ -12,9 +12,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SenderConfiguration {
 
-    public final String queueName = "notification";
-    public final String exchange = "notification.exchange";
-    public final String routing = "notification.routing";
+    private static final String queueName = "notification";
+    private static final String exchange = "notification.exchange";
+    private static final String routing = "notification.routing";
+
+    public static String getQueueName() {
+        return queueName;
+    }
 
     @Bean
     public Queue queue() {
@@ -28,17 +32,11 @@ public class SenderConfiguration {
 
     @Bean
     public Binding binding(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routing+".#");
+        return BindingBuilder.bind(queue).to(exchange).with(routing + ".#");
     }
 
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
-    }
-
-
-    public String getQueueName()
-    {
-        return queueName;
     }
 }

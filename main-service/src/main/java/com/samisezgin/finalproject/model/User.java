@@ -2,10 +2,9 @@ package com.samisezgin.finalproject.model;
 
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.PassengerType;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
-
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Set<Role> roles;
     @Enumerated(EnumType.STRING)
     private PassengerType passengerType;
@@ -69,10 +68,6 @@ public class User implements UserDetails {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -119,7 +114,6 @@ public class User implements UserDetails {
         this.bookingList = bookingList;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roles = getRoles();
@@ -132,6 +126,10 @@ public class User implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

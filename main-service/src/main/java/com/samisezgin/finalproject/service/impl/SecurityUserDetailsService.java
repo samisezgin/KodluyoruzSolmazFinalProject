@@ -18,12 +18,12 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var foundUser=userRepository.findByEmailIgnoreCase(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+        var foundUser = userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return foundUser;
     }
 
-    public void createUser(UserDetails user)
-    {
-        userRepository.save((User)user);
+    public void createUser(UserDetails user) {
+        userRepository.save((User) user);
     }
 }

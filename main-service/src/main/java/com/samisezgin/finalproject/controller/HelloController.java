@@ -1,12 +1,14 @@
 package com.samisezgin.finalproject.controller;
 
+import com.samisezgin.finalproject.configuration.SenderConfiguration;
 import com.samisezgin.finalproject.exceptions.RoleNotFoundException;
+import com.samisezgin.finalproject.model.NotificationRequest;
 import com.samisezgin.finalproject.model.User;
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.PassengerType;
-import com.samisezgin.finalproject.model.enums.RoleName;
 import com.samisezgin.finalproject.repository.RoleRepository;
 import com.samisezgin.finalproject.service.impl.SecurityUserDetailsService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -29,17 +31,21 @@ public class HelloController {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
+    private final RabbitTemplate rabbitTemplate;
+
     public HelloController(SecurityUserDetailsService userDetailsManager, PasswordEncoder passwordEncoder,
-                           RoleRepository roleRepository) {
+                           RoleRepository roleRepository, RabbitTemplate rabbitTemplate) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @GetMapping("/")
     public String index() {
         return "redirect:/swagger-ui/index.html";
     }
+
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpSession session) {
         session.setAttribute(
@@ -47,14 +53,16 @@ public class HelloController {
         );
         return "login";
     }
+
     @GetMapping("/register")
     public String register() {
         return "register";
     }
+
     @PostMapping(
             value = "/register",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
-            MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
+            MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
     public void addUser(@RequestParam Map<String, String> body) {
         User user = new User();
@@ -65,9 +73,17 @@ public class HelloController {
         user.setName(body.get("name"));
         user.setSurname(body.get("surname"));
         user.setPhoneNumber(body.get("phone"));
-        user.setRoles(Set.of(roleRepository.findByRoleName("USER").orElseThrow(()->new RoleNotFoundException("Role Not Found"))));
+        user.setRoles(Set.of(roleRepository.findByRoleName("USER")
+                .orElseThrow(() -> new RoleNotFoundException("Role Not Found"))));
+
+        rabbitTemplate.convertAndSend(SenderConfiguration.getQueueName(),
+                new NotificationRequest("Thank you for creating a new Account in Booking Service." +
+                        "Account created successfully with email address: " + user.getEmail(),
+                        "MAIL", user.getEmail()));
+
         userDetailsManager.createUser(user);
     }
+
     private String getErrorMessage(HttpServletRequest request, String key) {
         Exception exception = (Exception) request.getSession().getAttribute(key);
         String error = "";

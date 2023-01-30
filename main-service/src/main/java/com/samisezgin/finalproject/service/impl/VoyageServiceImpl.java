@@ -47,7 +47,7 @@ public class VoyageServiceImpl implements VoyageService {
         Voyage voyage = modelMapper.map(voyageRequest, Voyage.class);
         setVoyageCapacity(voyage);
         voyageRepository.save(voyage);
-        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> createVoyage : "+voyageRequest.getFromCity()+"->"+voyageRequest.getToCity()+"->"+voyageRequest.getVoyageDateTime());
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageService -> createVoyage : " + voyageRequest.getFromCity() + "->" + voyageRequest.getToCity() + "->" + voyageRequest.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 
@@ -55,7 +55,7 @@ public class VoyageServiceImpl implements VoyageService {
     public VoyageResponse deactivate(Integer id) {
         Voyage voyage = voyageRepository.findById(id).orElseThrow(() -> new VoyageNotFoundException("İlgili sefer bulunamadı!"));
         voyage.setVoyageStatus(VoyageStatus.PASSIVE);
-        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> deactivateVoyage : "+voyage.getFromCity()+"->"+voyage.getToCity()+"->"+voyage.getVoyageDateTime());
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageService -> deactivateVoyage : " + voyage.getFromCity() + "->" + voyage.getToCity() + "->" + voyage.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 
@@ -63,7 +63,7 @@ public class VoyageServiceImpl implements VoyageService {
     public VoyageResponse delete(Integer id) {
         Voyage voyage = voyageRepository.findById(id).orElseThrow(() -> new VoyageNotFoundException("İlgili sefer bulunamadı!"));
         voyageRepository.delete(voyage);
-        LoggerUtil.getLogger().log(Level.INFO,"VoyageService -> deleteVoyage : "+voyage.getFromCity()+"->"+voyage.getToCity()+"->"+voyage.getVoyageDateTime());
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageService -> deleteVoyage : " + voyage.getFromCity() + "->" + voyage.getToCity() + "->" + voyage.getVoyageDateTime());
         return modelMapper.map(voyage, VoyageResponse.class);
     }
 
@@ -87,7 +87,7 @@ public class VoyageServiceImpl implements VoyageService {
     @Override
     public List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, String travelType, LocalDateTime dateTime) {
 
-        List<Voyage> voyageList = voyageRepository.findVoyages(from,to, travelType,dateTime).orElseThrow(()->new VoyageNotFoundException("Aranan kriterlerde sefer bulunamadı"));
+        List<Voyage> voyageList = voyageRepository.findVoyages(from, to, travelType, dateTime).orElseThrow(() -> new VoyageNotFoundException("Aranan kriterlerde sefer bulunamadı"));
 
         List<VoyageResponse> voyageResponseList = new ArrayList<>();
 
@@ -100,8 +100,8 @@ public class VoyageServiceImpl implements VoyageService {
 
     @Override
     public Voyage findVoyage(BookingRequest bookingRequest) {
-        return voyageRepository.findVoyageByFromCityAndToCityAllIgnoreCaseAndVoyageDateTimeAndTravelType(bookingRequest.getFromCity(),bookingRequest.getToCity(), CustomDateTimeConverter.convert(bookingRequest.getVoyageDateTime()),bookingRequest.getTravelType())
-                .orElseThrow(()->new VoyageNotFoundException("Sefer işlem için uygun değil!"));
+        return voyageRepository.findVoyageByFromCityAndToCityAllIgnoreCaseAndVoyageDateTimeAndTravelType(bookingRequest.getFromCity(), bookingRequest.getToCity(), CustomDateTimeConverter.convert(bookingRequest.getVoyageDateTime()), bookingRequest.getTravelType())
+                .orElseThrow(() -> new VoyageNotFoundException("Sefer işlem için uygun değil!"));
     }
 
     @Override

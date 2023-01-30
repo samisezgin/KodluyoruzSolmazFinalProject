@@ -1,7 +1,5 @@
 package com.samisezgin.finalproject.model;
 
-import com.samisezgin.finalproject.model.enums.RoleName;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +11,11 @@ public class Role {
     private Integer id;
     private String roleName;
 
-    public Role(){}
+    public Role() {
+    }
 
-    public Role(String roleName)
-    {
-        this.roleName=roleName;
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
     public Integer getId() {

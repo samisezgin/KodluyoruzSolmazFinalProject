@@ -7,5 +7,6 @@ public final class Constants {
     public static final Integer MAX_ALLOWED_MALE_TICKETS_PER_BOOKING_FOR_INDIVIDUAL_PASSENGER = 2;
     public static final Integer MAX_ALLOWED_TICKETS_PER_BOOKING_FOR_CORPORATE_PASSENGER = 20;
 
-    private Constants(){}
+    private Constants() {
+    }
 }

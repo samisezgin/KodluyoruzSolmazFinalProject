@@ -18,7 +18,9 @@ public class BookingTask {
     private final VoyageRepository voyageRepository;
     private final TicketRepository ticketRepository;
 
-    public BookingTask(BookingRepository bookingRepository, VoyageRepository voyageRepository, TicketRepository ticketRepository) {
+    public BookingTask(BookingRepository bookingRepository,
+                       VoyageRepository voyageRepository,
+                       TicketRepository ticketRepository) {
         this.bookingRepository = bookingRepository;
         this.voyageRepository = voyageRepository;
         this.ticketRepository = ticketRepository;

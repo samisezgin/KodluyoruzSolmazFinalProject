@@ -6,7 +6,6 @@ import com.samisezgin.finalproject.dto.response.BookingResponse;
 public interface BookingService {
 
 
-
     BookingResponse create(BookingRequest bookingRequest);
 
     BookingResponse getById(Integer id);

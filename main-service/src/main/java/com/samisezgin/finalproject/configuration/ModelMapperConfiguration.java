@@ -14,10 +14,10 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class ModelMapperConfiguration {
-    private final ModelMapper modelMapper=new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Bean
-    public ModelMapper getModelMapper(){
+    public ModelMapper getModelMapper() {
 
         stringToLocalDateTimeConverter();
         localDateTimeToStringConverter();
@@ -26,8 +26,9 @@ public class ModelMapperConfiguration {
     }
 
     private void localDateTimeToStringConverter() {
-        Converter<LocalDateTime, String> toString = new AbstractConverter<LocalDateTime, String>() {
+        Converter<LocalDateTime, String> toString = new AbstractConverter<>() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             @Override
             protected String convert(LocalDateTime source) {
                 return source.format(formatter);
@@ -40,8 +41,9 @@ public class ModelMapperConfiguration {
     }
 
     private void stringToLocalDateTimeConverter() {
-        Converter<String, LocalDateTime> toLocalDateTime = new AbstractConverter<String, LocalDateTime>() {
+        Converter<String, LocalDateTime> toLocalDateTime = new AbstractConverter<>() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             @Override
             protected LocalDateTime convert(String source) {
                 return LocalDateTime.parse(source, formatter);

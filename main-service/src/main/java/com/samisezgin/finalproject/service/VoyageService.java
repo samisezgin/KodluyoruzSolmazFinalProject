@@ -12,13 +12,18 @@ import java.util.Optional;
 public interface VoyageService {
 
     VoyageResponse create(VoyageRequest voyageRequest);
+
     VoyageResponse deactivate(Integer id);
+
     VoyageResponse delete(Integer id);
+
     Integer getSoldTicketCount(Integer id);
+
     Double getTotalRevenue(Integer id);
 
 
     List<VoyageResponse> getByCityOrTravelTypeOrDate(String from, String to, String travelType, LocalDateTime dateTime);
+
     Voyage findVoyage(BookingRequest bookingRequest);
 
     Optional<Voyage> findById(Integer id);

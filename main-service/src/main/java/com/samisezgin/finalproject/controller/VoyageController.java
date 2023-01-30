@@ -26,7 +26,7 @@ public class VoyageController {
 
     @PostMapping
     public VoyageResponse create(@RequestBody VoyageRequest voyageRequest) {
-        LoggerUtil.getLogger().log(Level.INFO, "VoyageController POST request -> createVoyage :" + voyageRequest.getFromCity()+"->"+voyageRequest.getToCity());
+        LoggerUtil.getLogger().log(Level.INFO, "VoyageController POST request -> createVoyage :" + voyageRequest.getFromCity() + "->" + voyageRequest.getToCity());
         return voyageService.create(voyageRequest);
     }
 

@@ -22,7 +22,9 @@ public class PaymentServiceClient {
     @Value("${payment.service.url}")
     private String paymentUrl;
 
-    public PaymentServiceClient(BookingRepository bookingRepository, BookingService bookingService, RabbitTemplate rabbitTemplate) {
+    public PaymentServiceClient(BookingRepository bookingRepository,
+                                BookingService bookingService,
+                                RabbitTemplate rabbitTemplate) {
         this.bookingRepository = bookingRepository;
         this.bookingService = bookingService;
         this.rabbitTemplate = rabbitTemplate;
@@ -48,10 +50,10 @@ public class PaymentServiceClient {
         RestTemplate template = new RestTemplate();
         HttpEntity<Invoice> request = new HttpEntity<>(invoice);
 
-        var response=template.postForObject(paymentUrl, request, Invoice.class);
+        var response = template.postForObject(paymentUrl, request, Invoice.class);
 
         bookingService.changePaymentStatus(invoice.getBookingId());
-        rabbitTemplate.convertAndSend("notification", new NotificationRequest("Thank you for your purchase. Have a very safe journey: "+response, "SMS",response.getPhoneNumber()));
+        rabbitTemplate.convertAndSend("notification", new NotificationRequest("Thank you for your purchase. Have a very safe journey: " + response, "SMS", response.getPhoneNumber()));
 
         return response;
     }
