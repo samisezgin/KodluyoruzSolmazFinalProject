@@ -12,8 +12,7 @@ class VoyageNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(VoyageNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String voyageNotFoundHandler(VoyageNotFoundException exception)
-    {
+    String voyageNotFoundHandler(VoyageNotFoundException exception) {
         return exception.getMessage();
     }
 }

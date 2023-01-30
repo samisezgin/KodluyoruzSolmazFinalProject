@@ -21,7 +21,7 @@ public class Ticket {
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "voyage_id",referencedColumnName = "id")
+    @JoinColumn(name = "voyage_id", referencedColumnName = "id")
     private Voyage voyage;
 
     private double price;
@@ -83,12 +83,12 @@ public class Ticket {
         this.price = price;
     }
 
-    public void setVoyage(Voyage voyage) {
-        this.voyage = voyage;
-    }
-
     public Voyage getVoyage() {
         return voyage;
+    }
+
+    public void setVoyage(Voyage voyage) {
+        this.voyage = voyage;
     }
 
     public Booking getBooking() {

@@ -46,3 +46,19 @@ Jan 29, 2023 7:58:57 PM com.samisezgin.finalproject.controller.BookingController
 INFO: BookingController POST request -> createBooking :admin
 Jan 29, 2023 7:58:57 PM com.samisezgin.finalproject.service.impl.BookingServiceImpl create
 INFO: BookingService -> createBooking done. admin---ankara->istanbul->2023-01-31 21:00
+Jan 31, 2023 1:25:56 AM com.samisezgin.finalproject.controller.BookingController create
+INFO: BookingController POST request -> createBooking :admin
+Jan 31, 2023 1:25:56 AM com.samisezgin.finalproject.service.impl.BookingServiceImpl create
+INFO: BookingService -> createBooking done. admin---ankara->istanbul->2023-01-31 21:00
+Jan 31, 2023 1:27:10 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 31, 2023 1:27:10 AM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 31, 2023 1:30:13 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 31, 2023 1:30:13 AM com.samisezgin.finalproject.service.impl.BookingServiceImpl changePaymentStatus
+INFO: BookingService -> changePaymentStatus done.
+Jan 31, 2023 1:33:12 AM com.samisezgin.finalproject.controller.BookingController processPayment
+INFO: BookingController POST request -> processPayment :EFT
+Jan 31, 2023 1:33:12 AM com.samisezgin.finalproject.client.PaymentServiceClient processPayment
+INFO: You have already purchased the tickets. No need to pay more.

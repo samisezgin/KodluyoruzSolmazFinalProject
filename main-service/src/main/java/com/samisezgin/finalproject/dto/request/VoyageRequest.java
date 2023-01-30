@@ -38,6 +38,7 @@ public class VoyageRequest {
     public void setToCity(String toCity) {
         this.toCity = toCity;
     }
+
     public String getVoyageDateTime() {
         return voyageDateTime;
     }

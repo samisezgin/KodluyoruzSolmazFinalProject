@@ -43,7 +43,7 @@ public class Voyage {
     private VoyageStatus voyageStatus;
 
     public Voyage() {
-        voyageStatus=VoyageStatus.ACTIVE;
+        voyageStatus = VoyageStatus.ACTIVE;
     }
 
     public Integer getId() {

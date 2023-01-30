@@ -6,9 +6,9 @@ import com.samisezgin.finalproject.dto.response.TicketResponse;
 
 import java.util.List;
 
-public interface TicketService{
+public interface TicketService {
 
-    TicketResponse create(Integer id,TicketRequest ticketRequest);
+    TicketResponse create(Integer id, TicketRequest ticketRequest);
 
     TicketResponse update(Integer id, TicketRequest ticketRequest);
 

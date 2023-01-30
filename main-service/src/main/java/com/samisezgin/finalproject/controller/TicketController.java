@@ -2,9 +2,6 @@ package com.samisezgin.finalproject.controller;
 
 import com.samisezgin.finalproject.dto.request.TicketRequest;
 import com.samisezgin.finalproject.dto.response.TicketResponse;
-import com.samisezgin.finalproject.exceptions.TicketNotFoundException;
-import com.samisezgin.finalproject.repository.TicketRepository;
-import com.samisezgin.finalproject.service.TicketService;
 import com.samisezgin.finalproject.service.impl.TicketServiceImpl;
 import com.samisezgin.finalproject.util.LoggerUtil;
 import org.springframework.web.bind.annotation.*;
@@ -33,22 +30,19 @@ public class TicketController {
     }
 
     @PostMapping("/{voyageId}")
-    public TicketResponse create(@PathVariable Integer voyageId, @RequestBody TicketRequest ticketRequest)
-    {
+    public TicketResponse create(@PathVariable Integer voyageId, @RequestBody TicketRequest ticketRequest) {
         LoggerUtil.getLogger().log(Level.INFO, "TicketController POST request -> createTicket :" + ticketRequest.getCitizenshipNumber());
-        return ticketService.create(voyageId,ticketRequest);
+        return ticketService.create(voyageId, ticketRequest);
     }
 
     @PutMapping("/{ticketId}")
-    public TicketResponse update(@PathVariable Integer ticketId, @RequestBody TicketRequest ticketRequest)
-    {
+    public TicketResponse update(@PathVariable Integer ticketId, @RequestBody TicketRequest ticketRequest) {
         LoggerUtil.getLogger().log(Level.INFO, "TicketController POST request -> updateTicket :" + ticketRequest.getCitizenshipNumber());
-        return ticketService.update(ticketId,ticketRequest);
+        return ticketService.update(ticketId, ticketRequest);
     }
 
     @DeleteMapping("/{ticketId}")
-    public TicketResponse delete(@PathVariable Integer ticketId)
-    {
+    public TicketResponse delete(@PathVariable Integer ticketId) {
         LoggerUtil.getLogger().log(Level.INFO, "TicketController POST request -> deleteTicket :" + ticketService.getById(ticketId));
         return ticketService.delete(ticketId);
     }

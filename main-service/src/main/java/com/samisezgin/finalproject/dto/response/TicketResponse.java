@@ -2,8 +2,9 @@ package com.samisezgin.finalproject.dto.response;
 
 import com.samisezgin.finalproject.model.enums.Gender;
 import com.samisezgin.finalproject.model.enums.TravelType;
-import javax.persistence.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 public class TicketResponse {

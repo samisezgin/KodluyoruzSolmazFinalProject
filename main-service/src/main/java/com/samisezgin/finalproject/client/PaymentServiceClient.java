@@ -4,13 +4,18 @@ import com.samisezgin.finalproject.exceptions.BookingNotFoundException;
 import com.samisezgin.finalproject.model.Booking;
 import com.samisezgin.finalproject.model.Invoice;
 import com.samisezgin.finalproject.model.NotificationRequest;
+import com.samisezgin.finalproject.model.enums.PaymentStatus;
 import com.samisezgin.finalproject.repository.BookingRepository;
 import com.samisezgin.finalproject.service.BookingService;
+import com.samisezgin.finalproject.util.LoggerUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.logging.Level;
 
 @Service
 public class PaymentServiceClient {
@@ -22,7 +27,9 @@ public class PaymentServiceClient {
     @Value("${payment.service.url}")
     private String paymentUrl;
 
-    public PaymentServiceClient(BookingRepository bookingRepository, BookingService bookingService, RabbitTemplate rabbitTemplate) {
+    public PaymentServiceClient(BookingRepository bookingRepository,
+                                BookingService bookingService,
+                                RabbitTemplate rabbitTemplate) {
         this.bookingRepository = bookingRepository;
         this.bookingService = bookingService;
         this.rabbitTemplate = rabbitTemplate;
@@ -42,16 +49,20 @@ public class PaymentServiceClient {
 
     public Invoice processPayment(Integer bookingId, String paymentType) {
         Booking foundBooking = bookingRepository.findById(bookingId).orElseThrow(() -> new BookingNotFoundException("Booking not found!"));
-
+        if(foundBooking.getPaymentStatus().equals(PaymentStatus.SUCCESS))
+        {
+            LoggerUtil.getLogger().log(Level.INFO,"You have already purchased the tickets. No need to pay more.");
+            return null;
+        }
         Invoice invoice = bookingToInvoice(paymentType, foundBooking);
 
         RestTemplate template = new RestTemplate();
         HttpEntity<Invoice> request = new HttpEntity<>(invoice);
 
-        var response=template.postForObject(paymentUrl, request, Invoice.class);
+        var response = template.postForObject(paymentUrl, request, Invoice.class);
 
         bookingService.changePaymentStatus(invoice.getBookingId());
-        rabbitTemplate.convertAndSend("notification", new NotificationRequest("Thank you for your purchase. Have a very safe journey: "+response, "SMS",response.getPhoneNumber()));
+        rabbitTemplate.convertAndSend("notification", new NotificationRequest("Thank you for your purchase. Have a very safe journey: " + response, "SMS", response.getPhoneNumber()));
 
         return response;
     }

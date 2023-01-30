@@ -1,6 +1,6 @@
 package com.samisezgin.finalproject.model;
 
-public class NotificationRequest{
+public class NotificationRequest {
     private String notificationMessage;
     private String notificationType;
 

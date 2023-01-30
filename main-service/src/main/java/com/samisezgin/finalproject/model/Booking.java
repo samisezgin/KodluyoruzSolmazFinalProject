@@ -9,16 +9,13 @@ import java.util.List;
 @Entity
 @Table(name = "bookings")
 public class Booking {
+    private final LocalDateTime creationDateTime = LocalDateTime.now();
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    @OneToMany(mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> ticketList;
-
-    private final LocalDateTime creationDateTime = LocalDateTime.now();
-
     private double bookingTotalPrice;
 
     @ManyToOne
@@ -26,10 +23,9 @@ public class Booking {
     private User passengerUser;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus=PaymentStatus.PENDING;
+    private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
     private boolean isActive = true;
-
 
 
     public Integer getId() {

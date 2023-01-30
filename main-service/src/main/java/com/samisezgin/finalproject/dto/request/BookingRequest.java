@@ -16,8 +16,7 @@ public class BookingRequest {
 
     private TravelType travelType;
 
-    public BookingRequest()
-    {
+    public BookingRequest() {
 
     }
 

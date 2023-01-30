@@ -1,7 +1,9 @@
 package com.samisezgin.finalproject.dto.request;
 
 import com.samisezgin.finalproject.model.enums.Gender;
-import javax.persistence.*;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 
 public class TicketRequest {
