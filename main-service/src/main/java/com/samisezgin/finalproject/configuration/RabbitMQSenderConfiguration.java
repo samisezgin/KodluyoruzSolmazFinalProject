@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SenderConfiguration {
+public class RabbitMQSenderConfiguration {
 
     private static final String queueName = "notification";
     private static final String exchange = "notification.exchange";

@@ -1,6 +1,6 @@
 package com.samisezgin.finalproject.controller;
 
-import com.samisezgin.finalproject.configuration.SenderConfiguration;
+import com.samisezgin.finalproject.configuration.RabbitMQSenderConfiguration;
 import com.samisezgin.finalproject.exceptions.RoleNotFoundException;
 import com.samisezgin.finalproject.model.NotificationRequest;
 import com.samisezgin.finalproject.model.User;
@@ -76,7 +76,7 @@ public class HelloController {
         user.setRoles(Set.of(roleRepository.findByRoleName("USER")
                 .orElseThrow(() -> new RoleNotFoundException("Role Not Found"))));
 
-        rabbitTemplate.convertAndSend(SenderConfiguration.getQueueName(),
+        rabbitTemplate.convertAndSend(RabbitMQSenderConfiguration.getQueueName(),
                 new NotificationRequest("Thank you for creating a new Account in Booking Service." +
                         "Account created successfully with email address: " + user.getEmail(),
                         "MAIL", user.getEmail()));
