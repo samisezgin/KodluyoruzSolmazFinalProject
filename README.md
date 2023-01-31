@@ -45,7 +45,7 @@ polimorfik davranış ile yapılmalıdır.
 
 ### Kullanılan Teknolojiler
 
-<a href="https://www.java.com/" target="_blank"><img src="images/java.svg" alt="Java" height="70" /></a><a href="https://spring.io" target="_blank"><img src="images/spring-logo.svg" alt="Java" height="50" /></a></a><a href="https://www.postgresql.org/" target="_blank"><img src="images/postgre-logo.svg" alt="Java" height="40" /></a>     <a href="https://www.postgresql.org/" target="_blank"><img src="images/docker.svg" alt="Java" height="50" /></a>     
+<a href="https://www.java.com/" target="_blank"><img src="images/java.svg" alt="Java" height="70" /></a><a href="https://spring.io" target="_blank"><img src="images/spring-logo.svg" alt="Java" height="50" /></a></a><a href="https://www.postgresql.org/" target="_blank"><img src="images/postgre-logo.svg" alt="Java" height="40" /></a>     <a href="https://www.docker.com/" target="_blank"><img src="images/docker.svg" alt="Java" height="50" /></a>     
 
  <a href="https://www.mongodb.com" target="_blank"><img src="images/mongo-logo.svg" alt="Java" height="50" /></a>  <a href="https://www.rabbitmq.com/" target="_blank"><img src="images/rabbit-logo.svg" alt="Java" height="20" /></a>
 <a href="https://swagger.io/" target="_blank"><img src="images/swagger-logo.png" alt="Java" height="50" /></a>
