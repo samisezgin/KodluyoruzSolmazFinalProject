@@ -2,12 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Kodluyoruz X Solmaz Final Projesi</title>
+    <style>
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+    </style>
 </head>
 <body>
 <div th:if="${param.error}">
     <p th:text="${session.error}" th:unless="${session == null}">[...]</p>
 </div>
 
+<img th:src="@{/assets/img/solmaz-logo.jpg}" style="width: 25%">
+<img th:src="@{/assets/img/kodluyoruz-logo.png}" style="width: 25%">
+<!--<img src="../static/images/kodluyoruz-logo.png" style="width: 50%">-->
 <div style="text-align: center" th:if="${param.logout}">You have been logged out.</div>
 <form th:action="@{/login}" method="post">
 

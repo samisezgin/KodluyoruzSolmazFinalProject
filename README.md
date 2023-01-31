@@ -8,6 +8,34 @@
 
 Proje genel bir bilet alma sistemini simüle etmektedir.
 
+### Gereksinimler
+• Kullanıcılar sisteme kayıt ve login olabilmelidir.
+
+• Kullanıcı kayıt işleminden sonra mail gönderilmelidir.
+
+• Kullanıcı şifresi istediğiniz bir hashing algoritmasıyla database kaydedilmelidir.
+
+• Admin kullanıcı yeni sefer ekleyebilir, iptal edebilir, toplam bilet satışını, bu satıştan
+elde edilen toplam ücreti görebilir.
+
+• Kullanıcılar şehir bilgisi, taşıt türü(uçak & otobüs) veya tarih bilgisi ile tüm seferleri
+arayabilmelidir.
+
+• Bireysel kullanıcı aynı sefer için en fazla 5 bilet alabilir.
+
+• Bireysel kullanıcı tek bir siparişte en fazla 2 erkek yolcu için bilet alabilir.
+
+• Kurumsal kullanıcı aynı sefer için en fazla 20 bilet alabilir.
+
+• Satın alma işlemi başarılı ise işlem tamamlanmalı ve asenkron olarak bilet detayları
+kullanıcının telefona numarasına sms gönderilmeli.
+
+• SMS, mail ve push Notification gönderme işlemleri için sadece Database kayıt etme
+işlemi yapılması yeterlidir. Fakat bu işlemler tek bir Servis(uygulama) üzerinden ve
+polimorfik davranış ile yapılmalıdır.
+
+• Kullancılar aldığı biletleri görebilmelidir. 
+
 ### UML diagram
 
 <img src="images/uml-diagram.png" alt="uml-diagram"/>
@@ -20,13 +48,16 @@ Proje genel bir bilet alma sistemini simüle etmektedir.
 <a href="https://www.java.com/" target="_blank"><img src="images/java.svg" alt="Java" height="70" /></a><a href="https://spring.io" target="_blank"><img src="images/spring-logo.svg" alt="Java" height="50" /></a></a><a href="https://www.postgresql.org/" target="_blank"><img src="images/postgre-logo.svg" alt="Java" height="40" /></a>     <a href="https://www.postgresql.org/" target="_blank"><img src="images/docker.svg" alt="Java" height="50" /></a>     
 
  <a href="https://www.mongodb.com" target="_blank"><img src="images/mongo-logo.svg" alt="Java" height="50" /></a>  <a href="https://www.rabbitmq.com/" target="_blank"><img src="images/rabbit-logo.svg" alt="Java" height="20" /></a>
- 
+<a href="https://www.mongodb.com" target="_blank"><img src="images/swagger-logo.png" alt="Java" height="50" /></a>
  
 
 <!-- OUTPUT SCREENSHOTS -->
 
 ### Çıktı Görüntüleri
-<a href="https://www.java.com/" target="_blank"><img src="images/swagger-output.png" alt="Java" /></a>
+<img src="images/loginPage.png" alt="Java" />
+<img src="images/registerPage.png" alt="Java" />
+<img src="images/swagger-output.png" alt="Java" />
+
 
 
 
